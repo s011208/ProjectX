@@ -1,31 +1,44 @@
 
 package com.bj4.yhh.projectx;
 
-import com.bj4.yhh.projectx.lot.hk6.AddAndMinusFragment;
+import java.util.HashMap;
+
+import com.bj4.yhh.projectx.lot.LotteryData;
+import com.bj4.yhh.projectx.lot.hk6.HK6CombinationFragment;
+import com.bj4.yhh.projectx.lot.hk6.HK6LastFragment;
+import com.bj4.yhh.projectx.lot.hk6.HK6OrderedFragment;
 
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 public class MainActivity extends Activity implements
         NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    public static final int FRAGMENT_TYPE_ORDERED = 0;
+
+    public static final int FRAGMENT_TYPE_COMBINATION = 1;
+
+    public static final int FRAGMENT_TYPE_LAST = 2;
+
+    public static final int FRAGMENT_TYPE_ADD_AND_MINUS = 3;
+
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     private CharSequence mTitle;
+
+    // <gameType, <fragmentType, fragment>>
+    private final HashMap<Integer, HashMap<Integer, Fragment>> mFragments = new HashMap<Integer, HashMap<Integer, Fragment>>();
+
+    private int mCurrentGameType = 0;
+
+    private int mCurrentFragmentType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +51,53 @@ public class MainActivity extends Activity implements
 
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
                 (DrawerLayout)findViewById(R.id.drawer_layout));
+        mCurrentGameType = LotteryData.TYPE_HK6;
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+        mCurrentFragmentType = position;
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, AddAndMinusFragment.getNewInstance(position + 1)).commit();
+        final Fragment fragment = getFragment(mCurrentGameType, mCurrentFragmentType);
+        if (fragment != null) {
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        }
+    }
+
+    private Fragment getFragment(final int gameType, final int fragmentType) {
+        HashMap<Integer, Fragment> fragments = null;
+        Fragment rtn = null;
+        switch (gameType) {
+            case LotteryData.TYPE_HK6:
+                fragments = mFragments.get(gameType);
+                if (fragments == null) {
+                    fragments = new HashMap<Integer, Fragment>();
+                }
+                rtn = fragments.get(fragmentType);
+                if (rtn == null) {
+                    switch (fragmentType) {
+                        case FRAGMENT_TYPE_ORDERED:
+                            rtn = HK6OrderedFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_COMBINATION:
+                            rtn = HK6CombinationFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_LAST:
+                            rtn = HK6LastFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                            break;
+                    }
+                    fragments.put(fragmentType, rtn);
+                }
+                break;
+            default:
+                break;
+        }
+        if (rtn != null) {
+            mFragments.put(gameType, fragments);
+        }
+        return rtn;
     }
 
     public void onSectionAttached(int number) {
@@ -81,9 +133,6 @@ public class MainActivity extends Activity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
