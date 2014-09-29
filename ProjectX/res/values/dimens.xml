@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- default activity -->
+    <dimen name="activity_horizontal_margin">3dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="table_text_size">12sp</dimen>
+    <dimen name="table_date_width">85dp</dimen>
+    <dimen name="table_number_width">30dp</dimen>
+
+</resources>
