@@ -1,5 +1,5 @@
 
-package com.bj4.yhh.projectx.lot.hk6;
+package com.bj4.yhh.projectx.lot.lt539;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -20,10 +20,10 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 
-public class HK6ParseService extends Service {
+public class LT539ParseService extends Service {
     private static final boolean DEBUG = false;
 
-    private static final String TAG = "HK6ParseService";
+    private static final String TAG = "LT539ParseService";
 
     @Override
     public void onCreate() {
@@ -37,8 +37,8 @@ public class HK6ParseService extends Service {
     }
 
     private void parse() {
-        for (int i = 1; i <= 60; i++) {
-            new ParseTask(this, "http://www.pilio.idv.tw/ltohk/list.asp?indexpage=" + i).execute();
+        for (int i = 1; i <= 70; i++) {
+            new ParseTask(this, "http://www.pilio.idv.tw/lto539/list.asp?indexpage=" + i).execute();
         }
     }
 
@@ -78,14 +78,14 @@ public class HK6ParseService extends Service {
                     try {
                         long number = Long.valueOf(tdEles.get(0).text());
                         String date = tdEles.get(1).text();
-                        String[] raw = tdEles.get(2).text().replaceAll(" ", "").split(",");
+                        String[] raw = tdEles.get(2).text().replaceAll(",", "").replaceAll("  ", " ").split(" ");
                         int m1 = Integer.parseInt(raw[0].trim());
                         int m2 = Integer.parseInt(raw[1].trim());
                         int m3 = Integer.parseInt(raw[2].trim());
                         int m4 = Integer.parseInt(raw[3].trim());
                         int m5 = Integer.parseInt(raw[4].trim());
-                        int m6 = Integer.parseInt(raw[5].trim());
-                        int m7 = Integer.parseInt(tdEles.get(3).text().trim());
+                        int m6 = LotteryData.NOT_USED;
+                        int m7 = LotteryData.NOT_USED;
                         mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
                     } catch (Exception e) {
                         if (DEBUG)
@@ -97,8 +97,8 @@ public class HK6ParseService extends Service {
                     Log.w(TAG, "failed", e);
             }
             if (mData.isEmpty() == false) {
-                if (!db.isExists(LotteryData.TYPE_HK6, mData.get(0).mNumber)) {
-                    db.addData(LotteryData.TYPE_HK6, mData);
+                if (!db.isExists(LotteryData.TYPE_539, mData.get(0).mNumber)) {
+                    db.addData(LotteryData.TYPE_539, mData);
                 }
             }
             return null;

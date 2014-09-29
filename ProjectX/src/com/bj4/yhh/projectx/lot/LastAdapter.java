@@ -80,13 +80,14 @@ public class LastAdapter extends BaseAdapter implements DataLoadTask.Callback {
         ViewHolder holder = null;
         LinearLayout container = null;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.last_table_rows, null);
+            convertView = mInflater.inflate(R.layout.big_table_rows, null);
             container = (LinearLayout)convertView;
             holder = new ViewHolder();
             holder.mDate = new TextView(mContext);
             holder.mDate.setTextSize(mTableTextSize);
             holder.mDate.setEllipsize(TruncateAt.END);
             holder.mDate.setGravity(Gravity.CENTER);
+            holder.mDate.setBackgroundResource(R.drawable.column_bg);
             LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mTableDateWidth,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             container.addView(holder.mDate, ll);
@@ -95,6 +96,7 @@ public class LastAdapter extends BaseAdapter implements DataLoadTask.Callback {
                 txt.setSingleLine();
                 txt.setGravity(Gravity.CENTER);
                 txt.setTextSize(mTableTextSize);
+                txt.setBackgroundResource(R.drawable.column_bg);
                 LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(mTableNumberWidth,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 container.addView(txt, tl);

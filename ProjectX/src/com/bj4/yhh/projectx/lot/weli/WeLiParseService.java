@@ -1,5 +1,5 @@
 
-package com.bj4.yhh.projectx.lot.hk6;
+package com.bj4.yhh.projectx.lot.weli;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -20,10 +20,10 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 
-public class HK6ParseService extends Service {
-    private static final boolean DEBUG = false;
+public class WeLiParseService extends Service {
+    private static final boolean DEBUG = true;
 
-    private static final String TAG = "HK6ParseService";
+    private static final String TAG = "WeLiParseService";
 
     @Override
     public void onCreate() {
@@ -37,8 +37,8 @@ public class HK6ParseService extends Service {
     }
 
     private void parse() {
-        for (int i = 1; i <= 60; i++) {
-            new ParseTask(this, "http://www.pilio.idv.tw/ltohk/list.asp?indexpage=" + i).execute();
+        for (int i = 1; i <= 30; i++) {
+            new ParseTask(this, "http://www.pilio.idv.tw/LTO/list.asp?indexpage=" + i).execute();
         }
     }
 
@@ -78,7 +78,7 @@ public class HK6ParseService extends Service {
                     try {
                         long number = Long.valueOf(tdEles.get(0).text());
                         String date = tdEles.get(1).text();
-                        String[] raw = tdEles.get(2).text().replaceAll(" ", "").split(",");
+                        String[] raw = tdEles.get(2).text().replaceAll(",", "").replaceAll("  ", " ").split(" ");
                         int m1 = Integer.parseInt(raw[0].trim());
                         int m2 = Integer.parseInt(raw[1].trim());
                         int m3 = Integer.parseInt(raw[2].trim());
@@ -97,8 +97,8 @@ public class HK6ParseService extends Service {
                     Log.w(TAG, "failed", e);
             }
             if (mData.isEmpty() == false) {
-                if (!db.isExists(LotteryData.TYPE_HK6, mData.get(0).mNumber)) {
-                    db.addData(LotteryData.TYPE_HK6, mData);
+                if (!db.isExists(LotteryData.TYPE_WELI, mData.get(0).mNumber)) {
+                    db.addData(LotteryData.TYPE_WELI, mData);
                 }
             }
             return null;

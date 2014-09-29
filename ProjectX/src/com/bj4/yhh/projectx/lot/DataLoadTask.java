@@ -34,7 +34,10 @@ public class DataLoadTask extends AsyncTask<Void, Void, Void> {
         if (cb != null) {
             cb.startLoading();
         }
-        mData.addAll(LotteryData.getListData(mGameType));
+        Context context = mContext.get();
+        if (context != null) {
+            mData.addAll(LotteryData.getListData(context, mGameType));
+        }
         return null;
     }
 

@@ -4,14 +4,27 @@ package com.bj4.yhh.projectx;
 import java.util.HashMap;
 
 import com.bj4.yhh.projectx.lot.LotteryData;
+import com.bj4.yhh.projectx.lot.hk6.HK6AddOrMinusFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6CombinationFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6LastFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6OrderedFragment;
+import com.bj4.yhh.projectx.lot.hk6.HK6ParseService;
+import com.bj4.yhh.projectx.lot.lt539.LT539AddOrMinusFragment;
+import com.bj4.yhh.projectx.lot.lt539.LT539CombinationFragment;
+import com.bj4.yhh.projectx.lot.lt539.LT539LastFragment;
+import com.bj4.yhh.projectx.lot.lt539.LT539OrderedFragment;
+import com.bj4.yhh.projectx.lot.lt539.LT539ParseService;
+import com.bj4.yhh.projectx.lot.weli.WeLiAddOrMinusFragment;
+import com.bj4.yhh.projectx.lot.weli.WeLiCombinationFragment;
+import com.bj4.yhh.projectx.lot.weli.WeLiLastFragment;
+import com.bj4.yhh.projectx.lot.weli.WeLiOrderedFragment;
+import com.bj4.yhh.projectx.lot.weli.WeLiParseService;
 
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -47,11 +60,17 @@ public class MainActivity extends Activity implements
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)getFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
-
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
                 (DrawerLayout)findViewById(R.id.drawer_layout));
         mCurrentGameType = LotteryData.TYPE_HK6;
+        mTitle = getString(R.string.hk6);
+        startUpdateService();
+    }
+
+    private void startUpdateService() {
+        // startService(new Intent(this, HK6ParseService.class));
+        // startService(new Intent(this, LT539ParseService.class));
+        // startService(new Intent(this, WeLiParseService.class));
     }
 
     @Override
@@ -86,6 +105,55 @@ public class MainActivity extends Activity implements
                             rtn = HK6LastFragment.getNewInstance();
                             break;
                         case FRAGMENT_TYPE_ADD_AND_MINUS:
+                            rtn = HK6AddOrMinusFragment.getNewInstance();
+                            break;
+                    }
+                    fragments.put(fragmentType, rtn);
+                }
+                break;
+            case LotteryData.TYPE_539:
+                fragments = mFragments.get(gameType);
+                if (fragments == null) {
+                    fragments = new HashMap<Integer, Fragment>();
+                }
+                rtn = fragments.get(fragmentType);
+                if (rtn == null) {
+                    switch (fragmentType) {
+                        case FRAGMENT_TYPE_ORDERED:
+                            rtn = LT539OrderedFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_COMBINATION:
+                            rtn = LT539CombinationFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_LAST:
+                            rtn = LT539LastFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                            rtn = LT539AddOrMinusFragment.getNewInstance();
+                            break;
+                    }
+                    fragments.put(fragmentType, rtn);
+                }
+                break;
+            case LotteryData.TYPE_WELI:
+                fragments = mFragments.get(gameType);
+                if (fragments == null) {
+                    fragments = new HashMap<Integer, Fragment>();
+                }
+                rtn = fragments.get(fragmentType);
+                if (rtn == null) {
+                    switch (fragmentType) {
+                        case FRAGMENT_TYPE_ORDERED:
+                            rtn = WeLiOrderedFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_COMBINATION:
+                            rtn = WeLiCombinationFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_LAST:
+                            rtn = WeLiLastFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                            rtn = WeLiAddOrMinusFragment.getNewInstance();
                             break;
                     }
                     fragments.put(fragmentType, rtn);
@@ -98,20 +166,6 @@ public class MainActivity extends Activity implements
             mFragments.put(gameType, fragments);
         }
         return rtn;
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
     }
 
     public void restoreActionBar() {
@@ -134,8 +188,24 @@ public class MainActivity extends Activity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.hk6) {
+            mCurrentGameType = LotteryData.TYPE_HK6;
+            onNavigationDrawerItemSelected(0);
+            mTitle = getString(R.string.hk6);
+            restoreActionBar();
             return true;
+        } else if (id == R.id.lt539) {
+            mCurrentGameType = LotteryData.TYPE_539;
+            onNavigationDrawerItemSelected(0);
+            mTitle = getString(R.string.lt539);
+            restoreActionBar();
+            return true;
+            // } else if (id == R.id.weli) {
+            // mCurrentGameType = LotteryData.TYPE_WELI;
+            // onNavigationDrawerItemSelected(0);
+            // mTitle = getString(R.string.weli);
+            // restoreActionBar();
+            // return true;
         }
         return super.onOptionsItemSelected(item);
     }

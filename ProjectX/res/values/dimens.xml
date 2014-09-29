@@ -5,7 +5,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="table_text_size">12sp</dimen>
-    <dimen name="table_date_width">85dp</dimen>
+    <dimen name="table_date_width">110dp</dimen>
     <dimen name="table_number_width">30dp</dimen>
 
+    <dimen name="add_or_minus_table_text_size">14sp</dimen>
+    <dimen name="add_or_minus_table_date_width">200dp</dimen>
+    <dimen name="add_or_minus_table_number_width">70dp</dimen>
 </resources>

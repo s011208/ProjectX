@@ -25,7 +25,7 @@ public abstract class LastFragment extends Fragment {
 
     private void initComponents(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.last_table, container, false);
+        mRootView = inflater.inflate(R.layout.big_table, container, false);
         mDataList = (ListView)mRootView.findViewById(R.id.data_list);
         mAdapter = new LastAdapter(getActivity(), getGameType());
         mDataList.setAdapter(mAdapter);

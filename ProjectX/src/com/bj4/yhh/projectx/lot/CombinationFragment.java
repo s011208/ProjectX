@@ -25,7 +25,7 @@ public abstract class CombinationFragment extends Fragment {
 
     private void initComponents(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.combination_table, container, false);
+        mRootView = inflater.inflate(R.layout.big_table, container, false);
         mDataList = (ListView)mRootView.findViewById(R.id.data_list);
         mAdapter = new CombinationAdapter(getActivity(), getGameType());
         mDataList.setAdapter(mAdapter);
