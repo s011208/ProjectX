@@ -190,19 +190,19 @@ public class MainActivity extends Activity implements
         int id = item.getItemId();
         if (id == R.id.hk6) {
             mCurrentGameType = LotteryData.TYPE_HK6;
-            onNavigationDrawerItemSelected(0);
+            onNavigationDrawerItemSelected(mCurrentFragmentType);
             mTitle = getString(R.string.hk6);
             restoreActionBar();
             return true;
         } else if (id == R.id.lt539) {
             mCurrentGameType = LotteryData.TYPE_539;
-            onNavigationDrawerItemSelected(0);
+            onNavigationDrawerItemSelected(mCurrentFragmentType);
             mTitle = getString(R.string.lt539);
             restoreActionBar();
             return true;
             // } else if (id == R.id.weli) {
             // mCurrentGameType = LotteryData.TYPE_WELI;
-            // onNavigationDrawerItemSelected(0);
+            // onNavigationDrawerItemSelected(mCurrentFragmentType);
             // mTitle = getString(R.string.weli);
             // restoreActionBar();
             // return true;

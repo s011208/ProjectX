@@ -24,7 +24,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     private final int AWARDS_NUMBER_COUNT;
 
     private final int GAME_TYPE;
-    
+
     private final int FRAGMENT_TYPE;
 
     private Context mContext;
@@ -52,7 +52,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         mTableTextSize = r.getDimension(R.dimen.table_text_size);
         mTableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
         mTableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
-        switch(FRAGMENT_TYPE){
+        switch (FRAGMENT_TYPE) {
             case MainActivity.FRAGMENT_TYPE_LAST:
                 mOrderedList.addAll(Utils.getLastList(TOTAL_NUMBER_COUNT));
                 break;
@@ -63,7 +63,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
                 mOrderedList.addAll(Utils.getOrderedList(TOTAL_NUMBER_COUNT));
                 break;
         }
-        
+
         initData();
     }
 
@@ -122,60 +122,51 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             holder = (ViewHolder)convertView.getTag();
             container = (LinearLayout)convertView;
         }
-        if (position == 0) {
-            LotteryData data = getItem(position);
-            holder.mDate.setText(data.mDate);
-            for (int i = 1; i < container.getChildCount(); i++) {
-                holder.mText.get(i - 1).setText(
-                        String.valueOf(Utils.NUMBER_FORMATTER.format(mOrderedList.get(i - 1))));
+        LotteryData data = getItem(position);
+        holder.mDate.setText(data.mDate);
+        for (int i = 1; i < container.getChildCount(); i++) {
+            final int indexNumber = mOrderedList.get(i - 1);
+            boolean show = false;
+            if (AWARDS_NUMBER_COUNT >= 7) {
+                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                        || data.m4 == indexNumber || data.m5 == indexNumber
+                        || data.m6 == indexNumber || data.m7 == indexNumber) {
+                    show = true;
+                }
+            } else if (AWARDS_NUMBER_COUNT >= 6) {
+                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                        || data.m4 == indexNumber || data.m5 == indexNumber
+                        || data.m6 == indexNumber) {
+                    show = true;
+                }
+            } else if (AWARDS_NUMBER_COUNT >= 5) {
+                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                        || data.m4 == indexNumber || data.m5 == indexNumber) {
+                    show = true;
+                }
+            } else if (AWARDS_NUMBER_COUNT >= 4) {
+                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                        || data.m4 == indexNumber) {
+                    show = true;
+                }
+            } else if (AWARDS_NUMBER_COUNT >= 3) {
+                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber) {
+                    show = true;
+                }
+            } else if (AWARDS_NUMBER_COUNT >= 2) {
+                if (data.m1 == indexNumber || data.m2 == indexNumber) {
+                    show = true;
+                }
+            } else if (AWARDS_NUMBER_COUNT >= 1) {
+                if (data.m1 == indexNumber) {
+                    show = true;
+                }
             }
-        } else {
-            LotteryData data = getItem(position);
-            holder.mDate.setText(data.mDate);
-            for (int i = 1; i < container.getChildCount(); i++) {
-                final int indexNumber = mOrderedList.get(i - 1);
-                boolean show = false;
-                if (AWARDS_NUMBER_COUNT >= 7) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber || data.m5 == indexNumber
-                            || data.m6 == indexNumber || data.m7 == indexNumber) {
-                        show = true;
-                    }
-                } else if (AWARDS_NUMBER_COUNT >= 6) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber || data.m5 == indexNumber
-                            || data.m6 == indexNumber) {
-                        show = true;
-                    }
-                } else if (AWARDS_NUMBER_COUNT >= 5) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber || data.m5 == indexNumber) {
-                        show = true;
-                    }
-                } else if (AWARDS_NUMBER_COUNT >= 4) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber) {
-                        show = true;
-                    }
-                } else if (AWARDS_NUMBER_COUNT >= 3) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber) {
-                        show = true;
-                    }
-                } else if (AWARDS_NUMBER_COUNT >= 2) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber) {
-                        show = true;
-                    }
-                } else if (AWARDS_NUMBER_COUNT >= 1) {
-                    if (data.m1 == indexNumber) {
-                        show = true;
-                    }
-                }
-                if (show) {
-                    holder.mText.get(i - 1).setText(
-                            String.valueOf(Utils.NUMBER_FORMATTER.format(indexNumber)));
-                } else {
-                    holder.mText.get(i - 1).setText(null);
-                }
+            if (show) {
+                holder.mText.get(i - 1).setText(
+                        String.valueOf(Utils.NUMBER_FORMATTER.format(indexNumber)));
+            } else {
+                holder.mText.get(i - 1).setText(null);
             }
         }
         return convertView;

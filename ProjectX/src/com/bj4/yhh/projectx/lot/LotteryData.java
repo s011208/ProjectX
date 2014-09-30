@@ -49,7 +49,6 @@ public class LotteryData {
 
     public static ArrayList<LotteryData> getListData(Context context, int type) {
         final ArrayList<LotteryData> data = new ArrayList<LotteryData>();
-        data.add(new LotteryData(-1, -1, -1, -1, -1, -1, -1, "¤é´Á", -1));
         data.addAll(LotteryDatabaseHelper.getInstance(context).getData(type));
         return data;
     }
