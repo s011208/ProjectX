@@ -13,7 +13,9 @@ import android.text.TextUtils.TruncateAt;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +35,8 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     private int mTotalNumber;
 
+    private Button mMoveToTop, mMoveToBottom;
+
     public BigTableFragment() {
     }
 
@@ -48,6 +52,21 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         mDataList.setAdapter(mAdapter);
         mHeader = (LinearLayout)mRootView.findViewById(R.id.data_list_header);
         mFooter = (LinearLayout)mRootView.findViewById(R.id.data_list_footer);
+        mMoveToTop = (Button)mRootView.findViewById(R.id.move_to_top);
+        mMoveToTop.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                mDataList.setSelection(0);
+            }
+        });
+        mMoveToBottom = (Button)mRootView.findViewById(R.id.move_to_bottom);
+        mMoveToBottom.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                mDataList.setSelection(mAdapter.getCount());
+            }
+        });
         createHeader();
     }
 
