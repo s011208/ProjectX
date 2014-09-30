@@ -1,10 +1,11 @@
 
 package com.bj4.yhh.projectx.lot.weli;
 
-import com.bj4.yhh.projectx.lot.LastFragment;
+import com.bj4.yhh.projectx.MainActivity;
+import com.bj4.yhh.projectx.lot.BigTableFragment;
 import com.bj4.yhh.projectx.lot.LotteryData;
 
-public class WeLiLastFragment extends LastFragment {
+public class WeLiLastFragment extends BigTableFragment {
 
     public static WeLiLastFragment getNewInstance() {
         WeLiLastFragment fragment = new WeLiLastFragment();
@@ -14,6 +15,11 @@ public class WeLiLastFragment extends LastFragment {
     @Override
     public int getGameType() {
         return LotteryData.TYPE_WELI;
+    }
+
+    @Override
+    public int getFragmentType() {
+        return MainActivity.FRAGMENT_TYPE_LAST;
     }
 
 }

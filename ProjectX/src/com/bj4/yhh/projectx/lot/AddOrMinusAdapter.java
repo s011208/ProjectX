@@ -37,7 +37,13 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private final ArrayList<LotteryData> mData = new ArrayList<LotteryData>();
 
-    private int mValue = 0;
+    private int mComparedValue = 0;
+
+    public static final int COMPARED_TO_PREVIOUS = 0;
+
+    public static final int COMPARED_TO_NEXT = 1;
+
+    private int mComparedDirection = COMPARED_TO_PREVIOUS;
 
     public AddOrMinusAdapter(Context context, final int gameType) {
         GAME_TYPE = gameType;
@@ -52,8 +58,13 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
         initData();
     }
 
-    public void setValue(int value) {
-        mValue = value;
+    public void setComparedValue(int comparedValue) {
+        mComparedValue = comparedValue;
+        super.notifyDataSetChanged();
+    }
+
+    public void setComparedDirection(int direction) {
+        mComparedDirection = direction;
         super.notifyDataSetChanged();
     }
 
@@ -119,13 +130,25 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(i - 1).setText("");
             }
         } else {
-            LotteryData previousData = getItem(position - 1);
+            LotteryData comparedData = null;
+            try {
+                switch (mComparedDirection) {
+                    case COMPARED_TO_PREVIOUS:
+                        comparedData = getItem(position - 1);
+                        break;
+                    case COMPARED_TO_NEXT:
+                        comparedData = getItem(position + 1);
+                        break;
+                }
+            } catch (Exception e) {
+                comparedData = null;
+            }
             holder.mDate.setText(data.mDate);
             if (container.getChildCount() > 1) {
                 if (data.m1 != LotteryData.NOT_USED) {
                     holder.mText.get(0).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m1)));
-                    boolean isHit = isHit(data.m1, previousData, position);
+                    boolean isHit = isHit(data.m1, comparedData, position);
                     if (isHit) {
                         holder.mText.get(0).setTextColor(Color.RED);
                     } else {
@@ -140,7 +163,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 if (data.m2 != LotteryData.NOT_USED) {
                     holder.mText.get(1).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m2)));
-                    boolean isHit = isHit(data.m2, previousData, position);
+                    boolean isHit = isHit(data.m2, comparedData, position);
                     if (isHit) {
                         holder.mText.get(1).setTextColor(Color.RED);
                     } else {
@@ -155,7 +178,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 if (data.m3 != LotteryData.NOT_USED) {
                     holder.mText.get(2).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m3)));
-                    boolean isHit = isHit(data.m3, previousData, position);
+                    boolean isHit = isHit(data.m3, comparedData, position);
                     if (isHit) {
                         holder.mText.get(2).setTextColor(Color.RED);
                     } else {
@@ -170,7 +193,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 if (data.m4 != LotteryData.NOT_USED) {
                     holder.mText.get(3).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m4)));
-                    boolean isHit = isHit(data.m4, previousData, position);
+                    boolean isHit = isHit(data.m4, comparedData, position);
                     if (isHit) {
                         holder.mText.get(3).setTextColor(Color.RED);
                     } else {
@@ -185,7 +208,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 if (data.m5 != LotteryData.NOT_USED) {
                     holder.mText.get(4).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m5)));
-                    boolean isHit = isHit(data.m5, previousData, position);
+                    boolean isHit = isHit(data.m5, comparedData, position);
                     if (isHit) {
                         holder.mText.get(4).setTextColor(Color.RED);
                     } else {
@@ -200,7 +223,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 if (data.m6 != LotteryData.NOT_USED) {
                     holder.mText.get(5).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m6)));
-                    boolean isHit = isHit(data.m6, previousData, position);
+                    boolean isHit = isHit(data.m6, comparedData, position);
                     if (isHit) {
                         holder.mText.get(5).setTextColor(Color.RED);
                     } else {
@@ -215,7 +238,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 if (data.m7 != LotteryData.NOT_USED) {
                     holder.mText.get(6).setText(
                             String.valueOf(Utils.NUMBER_FORMATTER.format(data.m7)));
-                    boolean isHit = isHit(data.m7, previousData, position);
+                    boolean isHit = isHit(data.m7, comparedData, position);
                     if (isHit) {
                         holder.mText.get(6).setTextColor(Color.RED);
                     } else {
@@ -230,36 +253,36 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
         return convertView;
     }
 
-    private boolean isHit(int currentNumber, LotteryData previous, int currentPosition) {
-        if (currentPosition == 1) {
+    private boolean isHit(int currentNumber, LotteryData comparedData, int currentPosition) {
+        if (comparedData == null) {
             return false;
         }
-        if (previous.m1 != LotteryData.NOT_USED
-                && currentNumber == (previous.m1 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m1 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m1 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
-        if (previous.m2 != LotteryData.NOT_USED
-                && currentNumber == (previous.m2 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m2 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m2 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
-        if (previous.m3 != LotteryData.NOT_USED
-                && currentNumber == (previous.m3 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m3 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m3 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
-        if (previous.m4 != LotteryData.NOT_USED
-                && currentNumber == (previous.m4 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m4 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m4 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
-        if (previous.m5 != LotteryData.NOT_USED
-                && currentNumber == (previous.m5 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m5 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m5 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
-        if (previous.m6 != LotteryData.NOT_USED
-                && currentNumber == (previous.m6 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m6 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m6 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
-        if (previous.m7 != LotteryData.NOT_USED
-                && currentNumber == (previous.m7 + mValue) % TOTAL_NUMBER_COUNT) {
+        if (comparedData.m7 != LotteryData.NOT_USED
+                && currentNumber == (comparedData.m7 + mComparedValue) % TOTAL_NUMBER_COUNT) {
             return true;
         }
         return false;

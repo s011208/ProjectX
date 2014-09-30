@@ -3,6 +3,7 @@ package com.bj4.yhh.projectx.lot;
 
 import java.util.ArrayList;
 
+import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
 
 import android.content.Context;
@@ -16,13 +17,15 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class LastAdapter extends BaseAdapter implements DataLoadTask.Callback {
+public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callback {
 
     private final int TOTAL_NUMBER_COUNT;
 
     private final int AWARDS_NUMBER_COUNT;
 
     private final int GAME_TYPE;
+    
+    private final int FRAGMENT_TYPE;
 
     private Context mContext;
 
@@ -38,8 +41,9 @@ public class LastAdapter extends BaseAdapter implements DataLoadTask.Callback {
 
     private final ArrayList<Integer> mOrderedList = new ArrayList<Integer>();
 
-    public LastAdapter(Context context, final int gameType) {
+    public BigTableAdapter(Context context, final int gameType, final int fragmentType) {
         GAME_TYPE = gameType;
+        FRAGMENT_TYPE = fragmentType;
         TOTAL_NUMBER_COUNT = LotteryData.getTotalNumber(GAME_TYPE);
         AWARDS_NUMBER_COUNT = LotteryData.getAwardNumber(GAME_TYPE);
         mContext = context;
@@ -48,7 +52,18 @@ public class LastAdapter extends BaseAdapter implements DataLoadTask.Callback {
         mTableTextSize = r.getDimension(R.dimen.table_text_size);
         mTableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
         mTableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
-        mOrderedList.addAll(Utils.getLastList(TOTAL_NUMBER_COUNT));
+        switch(FRAGMENT_TYPE){
+            case MainActivity.FRAGMENT_TYPE_LAST:
+                mOrderedList.addAll(Utils.getLastList(TOTAL_NUMBER_COUNT));
+                break;
+            case MainActivity.FRAGMENT_TYPE_COMBINATION:
+                mOrderedList.addAll(Utils.getCombinationList(TOTAL_NUMBER_COUNT));
+                break;
+            case MainActivity.FRAGMENT_TYPE_ORDERED:
+                mOrderedList.addAll(Utils.getOrderedList(TOTAL_NUMBER_COUNT));
+                break;
+        }
+        
         initData();
     }
 

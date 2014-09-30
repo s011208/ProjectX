@@ -12,6 +12,14 @@ public class Utils {
 
     public static final NumberFormat NUMBER_FORMATTER = new DecimalFormat("00");
 
+    public static final ArrayList<Integer> getOrderedList(final int totalNumber) {
+        final ArrayList<Integer> rtn = new ArrayList<Integer>();
+        for (int i = 1; i <= totalNumber; i++) {
+            rtn.add(i);
+        }
+        return rtn;
+    }
+
     public static final ArrayList<Integer> getCombinationList(final int totalNumber) {
         final ArrayList<Integer> rtn = new ArrayList<Integer>();
         HashMap<Integer, ArrayList<Integer>> tempMap = new HashMap<Integer, ArrayList<Integer>>();

@@ -21,7 +21,7 @@ public abstract class AddOrMinusFragment extends Fragment implements
 
     private AddOrMinusAdapter mAdapter;
 
-    private RadioGroup mAdd, mMinus;
+    private RadioGroup mAdd, mMinus, mDirections;
 
     private int mValue = 0;
 
@@ -38,8 +38,24 @@ public abstract class AddOrMinusFragment extends Fragment implements
         mDataList.setAdapter(mAdapter);
         mAdd = (RadioGroup)mRootView.findViewById(R.id.add_group);
         mMinus = (RadioGroup)mRootView.findViewById(R.id.minus_group);
+        mDirections = (RadioGroup)mRootView.findViewById(R.id.direction_group);
+        mDirections.check(R.id.previous);
         mAdd.setOnCheckedChangeListener(this);
         mMinus.setOnCheckedChangeListener(this);
+        mDirections.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.previous:
+                        mAdapter.setComparedDirection(AddOrMinusAdapter.COMPARED_TO_PREVIOUS);
+                        break;
+                    case R.id.next:
+                        mAdapter.setComparedDirection(AddOrMinusAdapter.COMPARED_TO_NEXT);
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -61,7 +77,7 @@ public abstract class AddOrMinusFragment extends Fragment implements
             mMinus.setOnCheckedChangeListener(null);
             mMinus.clearCheck();
             mMinus.setOnCheckedChangeListener(this);
-        } else {
+        } else if (group == mMinus) {
             mAdd.setOnCheckedChangeListener(null);
             mAdd.clearCheck();
             mAdd.setOnCheckedChangeListener(this);
@@ -128,6 +144,6 @@ public abstract class AddOrMinusFragment extends Fragment implements
                 mValue = -10;
                 break;
         }
-        mAdapter.setValue(mValue);
+        mAdapter.setComparedValue(mValue);
     }
 }

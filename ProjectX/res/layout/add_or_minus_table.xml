@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/radio_groups"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="horizontal"
         android:padding="6dp" >
@@ -167,6 +167,29 @@
                 android:text="-10" />
         </RadioGroup>
     </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/direction_group"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/radio_groups"
+        android:orientation="vertical"
+        android:padding="3dp" >
+
+        <RadioButton
+            android:id="@+id/previous"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="上一期比對" />
+
+        <RadioButton
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="下一期比對" />
+    </RadioGroup>
 
     <HorizontalScrollView
         android:id="@+id/h_scrollview"

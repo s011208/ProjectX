@@ -8,6 +8,13 @@
         android:layout_height="match_parent"
         android:orientation="horizontal" >
 
+        <LinearLayout
+            android:id="@+id/data_list_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
         <ListView
             android:id="@+id/data_list"
             android:layout_width="match_parent"
