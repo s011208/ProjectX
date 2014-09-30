@@ -2,12 +2,14 @@
 package com.bj4.yhh.projectx.lot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.text.TextUtils.TruncateAt;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callback {
+
+    public interface Callback {
+        public void onCalculate(HashMap<Integer, Integer> resultMap);
+    }
 
     private final int TOTAL_NUMBER_COUNT;
 
@@ -41,11 +47,15 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     private final ArrayList<Integer> mOrderedList = new ArrayList<Integer>();
 
-    public BigTableAdapter(Context context, final int gameType, final int fragmentType) {
+    private Callback mCallback;
+
+    public BigTableAdapter(Context context, final int gameType, final int fragmentType,
+            final Callback cb) {
         GAME_TYPE = gameType;
         FRAGMENT_TYPE = fragmentType;
         TOTAL_NUMBER_COUNT = LotteryData.getTotalNumber(GAME_TYPE);
         AWARDS_NUMBER_COUNT = LotteryData.getAwardNumber(GAME_TYPE);
+        mCallback = cb;
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources r = context.getResources();
@@ -182,10 +192,52 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     public void done(ArrayList<LotteryData> data) {
         mData.clear();
         mData.addAll(data);
+        new CalculateTask(data, mCallback).execute();
         super.notifyDataSetChanged();
     }
 
     @Override
     public void startLoading() {
     }
+
+    private static class CalculateTask extends AsyncTask<Void, Void, Void> {
+        private ArrayList<LotteryData> mData;
+
+        private Callback mCallback;
+
+        private HashMap<Integer, Integer> mRtn = new HashMap<Integer, Integer>();
+
+        public CalculateTask(ArrayList<LotteryData> data, Callback cb) {
+            mData = data;
+            mCallback = cb;
+            for (int i = -10; i <= 100; i++) {
+                mRtn.put(i, 0);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            if (mData != null) {
+                for (LotteryData data : mData) {
+                    mRtn.put(data.m1, mRtn.get(data.m1) + 1);
+                    mRtn.put(data.m2, mRtn.get(data.m2) + 1);
+                    mRtn.put(data.m3, mRtn.get(data.m3) + 1);
+                    mRtn.put(data.m4, mRtn.get(data.m4) + 1);
+                    mRtn.put(data.m5, mRtn.get(data.m5) + 1);
+                    mRtn.put(data.m6, mRtn.get(data.m6) + 1);
+                    mRtn.put(data.m7, mRtn.get(data.m7) + 1);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (mCallback != null) {
+                mCallback.onCalculate(mRtn);
+            }
+        }
+    }
+
 }
