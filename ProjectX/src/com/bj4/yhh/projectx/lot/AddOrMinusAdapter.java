@@ -128,10 +128,10 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
         try {
             switch (mComparedDirection) {
                 case COMPARED_TO_PREVIOUS:
-                    comparedData = getItem(position - 1);
+                    comparedData = getItem(position + 1);
                     break;
                 case COMPARED_TO_NEXT:
-                    comparedData = getItem(position + 1);
+                    comparedData = getItem(position - 1);
                     break;
             }
         } catch (Exception e) {
@@ -244,31 +244,31 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
             return false;
         }
         if (comparedData.m1 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m1 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m1 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         if (comparedData.m2 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m2 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m2 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         if (comparedData.m3 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m3 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m3 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         if (comparedData.m4 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m4 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m4 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         if (comparedData.m5 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m5 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m5 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         if (comparedData.m6 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m6 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m6 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         if (comparedData.m7 != LotteryData.NOT_USED
-                && currentNumber == (comparedData.m7 + mComparedValue) % TOTAL_NUMBER_COUNT) {
+                && currentNumber == ((comparedData.m7 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
             return true;
         }
         return false;
