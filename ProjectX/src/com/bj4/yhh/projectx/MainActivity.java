@@ -2,8 +2,11 @@
 package com.bj4.yhh.projectx;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import com.bj4.yhh.projectx.lot.LotteryData;
+import com.bj4.yhh.projectx.lot.ParseService;
+import com.bj4.yhh.projectx.lot.UpdatableFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6AddOrMinusFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6CombinationFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6LastFragment;
@@ -24,7 +27,10 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,13 +70,66 @@ public class MainActivity extends Activity implements
                 (DrawerLayout)findViewById(R.id.drawer_layout));
         mCurrentGameType = LotteryData.TYPE_HK6;
         mTitle = getString(R.string.hk6);
-        startUpdateService();
+        registerReceiver();
     }
 
-    private void startUpdateService() {
-        // startService(new Intent(this, HK6ParseService.class));
-        // startService(new Intent(this, LT539ParseService.class));
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (ParseService.INTENT_FINISH_ALL_TASKS.equals(action)) {
+                final int gameType = intent.getIntExtra(ParseService.INTENT_EXTRAS_UPDATE_GAMETYPE,
+                        -1);
+                updateListData(gameType);
+            }
+        }
+    };
+
+    private void updateListData(int gameType) {
+        HashMap<Integer, Fragment> fragments = mFragments.get(gameType);
+        if (fragments != null) {
+            Iterator<Integer> iter = fragments.keySet().iterator();
+            while (iter.hasNext()) {
+                int key = iter.next();
+                Fragment fragment = fragments.get(key);
+                if (fragment instanceof UpdatableFragment) {
+                    ((UpdatableFragment)fragment).updateContent();
+                }
+            }
+        }
+    }
+
+    private void registerReceiver() {
+        IntentFilter filter = new IntentFilter(ParseService.INTENT_FINISH_ALL_TASKS);
+        registerReceiver(mReceiver, filter);
+    }
+
+    private void unregisterReceiver() {
+        unregisterReceiver(mReceiver);
+    }
+
+    public void onDestroy() {
+        unregisterReceiver();
+        super.onDestroy();
+    }
+
+    private void startUpdateAllService() {
+        startService(new Intent(this, HK6ParseService.class));
+        startService(new Intent(this, LT539ParseService.class));
         // startService(new Intent(this, WeLiParseService.class));
+    }
+
+    private void startUpdateRecently() {
+        Intent hk6 = new Intent(this, HK6ParseService.class);
+        hk6.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+        startService(hk6);
+        Intent lt539 = new Intent(this, LT539ParseService.class);
+        lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+        startService(lt539);
+        // Intent weli = new Intent(this, WeLiParseService.class);
+        // weli.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+        // startService(weli);
     }
 
     @Override
@@ -206,6 +265,10 @@ public class MainActivity extends Activity implements
             // mTitle = getString(R.string.weli);
             // restoreActionBar();
             // return true;
+        } else if (id == R.id.update_all) {
+            startUpdateAllService();
+        } else if (id == R.id.update_last) {
+            startUpdateRecently();
         }
         return super.onOptionsItemSelected(item);
     }

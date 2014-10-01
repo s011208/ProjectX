@@ -23,7 +23,8 @@ import android.widget.TextView;
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
 
-public abstract class BigTableFragment extends Fragment implements BigTableAdapter.Callback {
+public abstract class BigTableFragment extends Fragment implements BigTableAdapter.Callback,
+        UpdatableFragment {
 
     private View mRootView;
 
@@ -73,6 +74,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
     private void createFooter(HashMap<Integer, Integer> resultMap) {
         mFooter.removeAllViews();
         Context context = getActivity();
+        if (context == null) {
+            return;
+        }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
         Resources r = context.getResources();
         float tableTextSize = r.getDimension(R.dimen.table_text_size) * 0.75f;
@@ -96,7 +100,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         date.setEllipsize(TruncateAt.END);
         date.setGravity(Gravity.CENTER);
         date.setBackgroundResource(R.drawable.header_column_bg);
-        date.setText("總計");
+        date.setText(R.string.sub_total);
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(tableDateWidth,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         mFooter.addView(date, ll);
@@ -116,6 +120,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
     private void createHeader() {
         mHeader.removeAllViews();
         Context context = getActivity();
+        if (context == null) {
+            return;
+        }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
         Resources r = context.getResources();
         float tableTextSize = r.getDimension(R.dimen.table_text_size);
@@ -139,7 +146,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         date.setEllipsize(TruncateAt.END);
         date.setGravity(Gravity.CENTER);
         date.setBackgroundResource(R.drawable.header_column_bg);
-        date.setText("日期");
+        date.setText(R.string.date);
         LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(tableDateWidth,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         mHeader.addView(date, ll);
@@ -158,6 +165,10 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     public void onCalculate(HashMap<Integer, Integer> resultMap) {
         createFooter(resultMap);
+    }
+
+    public void updateContent() {
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

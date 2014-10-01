@@ -6,6 +6,10 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.bj4.yhh.projectx.R;
+
+import android.app.Notification;
+import android.content.Context;
 import android.util.Log;
 
 public class Utils {
@@ -62,6 +66,17 @@ public class Utils {
                 rtn.addAll(tempList);
             }
         }
+        return rtn;
+    }
+
+    public static Notification getNotification(Context context, int currentProgress,
+            int targetProgress, String title, String subject) {
+        Notification rtn = new Notification.Builder(context)
+                .setContentTitle(title)
+                .setProgress(100,
+                        (int)(((float)(targetProgress - currentProgress) / targetProgress) * 100),
+                        false).setContentText(subject).setSmallIcon(R.drawable.ic_launcher)
+                .setAutoCancel(true).build();
         return rtn;
     }
 }

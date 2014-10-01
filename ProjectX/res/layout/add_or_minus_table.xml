@@ -181,14 +181,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="上一期比對" />
+            android:text="@string/compare_to_previous" />
 
         <RadioButton
             android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="下一期比對" />
+            android:text="@string/compare_to_next" />
     </RadioGroup>
 
     <HorizontalScrollView

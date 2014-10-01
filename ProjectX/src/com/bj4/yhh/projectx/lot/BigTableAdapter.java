@@ -3,6 +3,8 @@ package com.bj4.yhh.projectx.lot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
@@ -10,6 +12,7 @@ import com.bj4.yhh.projectx.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.text.TextUtils.TruncateAt;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -78,7 +81,12 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     }
 
     private void initData() {
-        new DataLoadTask(mContext, GAME_TYPE, this).execute();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            new DataLoadTask(mContext, GAME_TYPE, this).executeOnExecutor(
+                    AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            new DataLoadTask(mContext, GAME_TYPE, this).execute();
+        }
     }
 
     public void notifyDataSetChanged() {

@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 
 import com.bj4.yhh.projectx.R;
 
-public abstract class AddOrMinusFragment extends Fragment implements
+public abstract class AddOrMinusFragment extends Fragment implements UpdatableFragment,
         RadioGroup.OnCheckedChangeListener {
 
     private View mRootView;
@@ -29,6 +29,10 @@ public abstract class AddOrMinusFragment extends Fragment implements
     }
 
     public abstract int getGameType();
+
+    public void updateContent() {
+        mAdapter.notifyDataSetChanged();
+    }
 
     private void initComponents(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {

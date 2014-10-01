@@ -8,6 +8,8 @@ import com.bj4.yhh.projectx.R;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.text.TextUtils.TruncateAt;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -69,7 +71,12 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
     }
 
     private void initData() {
-        new DataLoadTask(mContext, GAME_TYPE, this).execute();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            new DataLoadTask(mContext, GAME_TYPE, this).executeOnExecutor(
+                    AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            new DataLoadTask(mContext, GAME_TYPE, this).execute();
+        }
     }
 
     public void notifyDataSetChanged() {
