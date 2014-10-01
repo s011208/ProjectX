@@ -23,5 +23,6 @@
     <string name="date">日期</string>
     <string name="compare_to_previous">上一期比對</string>
     <string name="compare_to_next">下一期比對</string>
+    <string name="services_updating">正在更新中</string>
 
 </resources>

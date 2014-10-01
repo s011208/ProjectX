@@ -35,6 +35,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.support.v4.widget.DrawerLayout;
 
 public class MainActivity extends Activity implements
@@ -98,6 +99,20 @@ public class MainActivity extends Activity implements
                 }
             }
         }
+        String title = "";
+        switch (gameType) {
+            case LotteryData.TYPE_HK6:
+                title = getString(R.string.hk6);
+                break;
+            case LotteryData.TYPE_539:
+                title = getString(R.string.lt539);
+                break;
+            case LotteryData.TYPE_WELI:
+                title = getString(R.string.weli);
+                break;
+        }
+        Toast.makeText(this, title + " " + getString(R.string.update_done), Toast.LENGTH_LONG)
+                .show();
     }
 
     private void registerReceiver() {
@@ -114,22 +129,37 @@ public class MainActivity extends Activity implements
         super.onDestroy();
     }
 
+    private boolean isServicesUpdatable() {
+        boolean rtn = true;
+        if (rtn) {
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.services_updating, Toast.LENGTH_LONG)
+                    .show();
+        }
+        return rtn;
+    }
+
     private void startUpdateAllService() {
-        startService(new Intent(this, HK6ParseService.class));
-        startService(new Intent(this, LT539ParseService.class));
-        // startService(new Intent(this, WeLiParseService.class));
+        if (isServicesUpdatable()) {
+            startService(new Intent(this, HK6ParseService.class));
+            startService(new Intent(this, LT539ParseService.class));
+            // startService(new Intent(this, WeLiParseService.class));
+        }
     }
 
     private void startUpdateRecently() {
-        Intent hk6 = new Intent(this, HK6ParseService.class);
-        hk6.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
-        startService(hk6);
-        Intent lt539 = new Intent(this, LT539ParseService.class);
-        lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
-        startService(lt539);
-        // Intent weli = new Intent(this, WeLiParseService.class);
-        // weli.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
-        // startService(weli);
+        if (isServicesUpdatable()) {
+            Intent hk6 = new Intent(this, HK6ParseService.class);
+            hk6.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+            startService(hk6);
+            Intent lt539 = new Intent(this, LT539ParseService.class);
+            lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+            startService(lt539);
+            // Intent weli = new Intent(this, WeLiParseService.class);
+            // weli.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA,
+            // true);
+            // startService(weli);
+        }
     }
 
     @Override
