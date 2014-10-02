@@ -15,10 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
@@ -51,6 +54,30 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         mDataList = (ListView)mRootView.findViewById(R.id.data_list);
         mAdapter = new BigTableAdapter(getActivity(), getGameType(), getFragmentType(), this);
         mDataList.setAdapter(mAdapter);
+        mDataList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position,
+                    long arg3) {
+                DeleteDataConfirmDialog dialogFragment = DeleteDataConfirmDialog
+                        .newInstance(new DeleteDataConfirmDialog.Callback() {
+
+                            @Override
+                            public void doPositive() {
+                                LotteryData data = mAdapter.getItem(position);
+                                LotteryDatabaseHelper.getInstance(getActivity()).deleteData(
+                                        getGameType(), data.mNumber);
+                                updateContent();
+                                Toast.makeText(
+                                        getActivity(),
+                                        getActivity().getString(R.string.delete_complete_toast)
+                                                + " " + data.mNumber, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                dialogFragment.show(getFragmentManager(), "DeleteDataConfirmDialog");
+                return true;
+            }
+        });
         mHeader = (LinearLayout)mRootView.findViewById(R.id.data_list_header);
         mFooter = (LinearLayout)mRootView.findViewById(R.id.data_list_footer);
         mMoveToTop = (Button)mRootView.findViewById(R.id.move_to_top);

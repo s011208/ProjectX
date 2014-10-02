@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.bj4.yhh.projectx.R;
+import com.bj4.yhh.projectx.SharedPreferenceManager;
 
 import android.app.Notification;
 import android.content.Context;
@@ -77,6 +78,23 @@ public class Utils {
                         (int)(((float)(targetProgress - currentProgress) / targetProgress) * 100),
                         false).setContentText(subject).setSmallIcon(R.drawable.ic_launcher)
                 .setAutoCancel(true).build();
+        return rtn;
+    }
+
+    public static int getGridColorResource(Context context) {
+        SharedPreferenceManager manager = SharedPreferenceManager.getInstance(context);
+        int rtn = R.drawable.blue_column_bg;
+        switch (manager.getGridColor()) {
+            case SharedPreferenceManager.GRID_COLOR_BLUE:
+                rtn = R.drawable.blue_column_bg;
+                break;
+            case SharedPreferenceManager.GRID_COLOR_GREY:
+                rtn = R.drawable.grey_column_bg;
+                break;
+            case SharedPreferenceManager.GRID_COLOR_BLACK:
+                rtn = R.drawable.black_column_bg;
+                break;
+        }
         return rtn;
     }
 }

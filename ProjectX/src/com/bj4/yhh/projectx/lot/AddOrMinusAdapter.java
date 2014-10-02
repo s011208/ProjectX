@@ -47,6 +47,8 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private int mComparedDirection = COMPARED_TO_PREVIOUS;
 
+    private int mGridColorResource = 0;
+
     public AddOrMinusAdapter(Context context, final int gameType) {
         GAME_TYPE = gameType;
         TOTAL_NUMBER_COUNT = LotteryData.getTotalNumber(GAME_TYPE);
@@ -71,9 +73,10 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
     }
 
     private void initData() {
+        mGridColorResource = Utils.getGridColorResource(mContext);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            new DataLoadTask(mContext, GAME_TYPE, this).executeOnExecutor(
-                    AsyncTask.THREAD_POOL_EXECUTOR);
+            new DataLoadTask(mContext, GAME_TYPE, this)
+                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
             new DataLoadTask(mContext, GAME_TYPE, this).execute();
         }
@@ -110,7 +113,6 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
             holder.mDate.setTextSize(mTableTextSize);
             holder.mDate.setEllipsize(TruncateAt.END);
             holder.mDate.setGravity(Gravity.CENTER);
-            holder.mDate.setBackgroundResource(R.drawable.column_bg);
             LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mTableDateWidth,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             container.addView(holder.mDate, ll);
@@ -119,7 +121,6 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 txt.setSingleLine();
                 txt.setGravity(Gravity.CENTER);
                 txt.setTextSize(mTableTextSize);
-                txt.setBackgroundResource(R.drawable.column_bg);
                 LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(mTableNumberWidth,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 container.addView(txt, tl);
@@ -144,6 +145,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
         } catch (Exception e) {
             comparedData = null;
         }
+        holder.mDate.setBackgroundResource(mGridColorResource);
         holder.mDate.setText(data.mDate);
         if (container.getChildCount() > 1) {
             if (data.m1 != LotteryData.NOT_USED) {
@@ -158,6 +160,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(0).setText(null);
                 holder.mText.get(0).setTextColor(Color.BLACK);
             }
+            holder.mText.get(0).setBackgroundResource(mGridColorResource);
         }
         if (container.getChildCount() > 2) {
             if (data.m2 != LotteryData.NOT_USED) {
@@ -172,6 +175,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(1).setTextColor(Color.BLACK);
                 holder.mText.get(1).setText(null);
             }
+            holder.mText.get(1).setBackgroundResource(mGridColorResource);
         }
         if (container.getChildCount() > 3) {
             if (data.m3 != LotteryData.NOT_USED) {
@@ -186,6 +190,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(2).setTextColor(Color.BLACK);
                 holder.mText.get(2).setText(null);
             }
+            holder.mText.get(2).setBackgroundResource(mGridColorResource);
         }
         if (container.getChildCount() > 4) {
             if (data.m4 != LotteryData.NOT_USED) {
@@ -200,6 +205,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(3).setTextColor(Color.BLACK);
                 holder.mText.get(3).setText(null);
             }
+            holder.mText.get(3).setBackgroundResource(mGridColorResource);
         }
         if (container.getChildCount() > 5) {
             if (data.m5 != LotteryData.NOT_USED) {
@@ -214,6 +220,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(4).setTextColor(Color.BLACK);
                 holder.mText.get(4).setText(null);
             }
+            holder.mText.get(4).setBackgroundResource(mGridColorResource);
         }
         if (container.getChildCount() > 6) {
             if (data.m6 != LotteryData.NOT_USED) {
@@ -228,6 +235,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(5).setTextColor(Color.BLACK);
                 holder.mText.get(5).setText(null);
             }
+            holder.mText.get(5).setBackgroundResource(mGridColorResource);
         }
         if (container.getChildCount() > 7) {
             if (data.m7 != LotteryData.NOT_USED) {
@@ -242,6 +250,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 holder.mText.get(6).setTextColor(Color.BLACK);
                 holder.mText.get(6).setText(null);
             }
+            holder.mText.get(6).setBackgroundResource(mGridColorResource);
         }
         return convertView;
     }

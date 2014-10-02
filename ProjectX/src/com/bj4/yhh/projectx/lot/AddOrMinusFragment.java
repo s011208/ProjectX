@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.bj4.yhh.projectx.R;
 
@@ -40,6 +43,30 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
         mDataList = (ListView)mRootView.findViewById(R.id.data_list);
         mAdapter = new AddOrMinusAdapter(getActivity(), getGameType());
         mDataList.setAdapter(mAdapter);
+        mDataList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position,
+                    long arg3) {
+                DeleteDataConfirmDialog dialogFragment = DeleteDataConfirmDialog
+                        .newInstance(new DeleteDataConfirmDialog.Callback() {
+
+                            @Override
+                            public void doPositive() {
+                                LotteryData data = mAdapter.getItem(position);
+                                LotteryDatabaseHelper.getInstance(getActivity()).deleteData(
+                                        getGameType(), data.mNumber);
+                                updateContent();
+                                Toast.makeText(
+                                        getActivity(),
+                                        getActivity().getString(R.string.delete_complete_toast)
+                                                + " " + data.mNumber, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                dialogFragment.show(getFragmentManager(), "DeleteDataConfirmDialog");
+                return true;
+            }
+        });
         mAdd = (RadioGroup)mRootView.findViewById(R.id.add_group);
         mMinus = (RadioGroup)mRootView.findViewById(R.id.minus_group);
         mDirections = (RadioGroup)mRootView.findViewById(R.id.direction_group);

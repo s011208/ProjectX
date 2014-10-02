@@ -4,6 +4,7 @@ package com.bj4.yhh.projectx;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.bj4.yhh.projectx.lot.AddNewDataDialog;
 import com.bj4.yhh.projectx.lot.LotteryData;
 import com.bj4.yhh.projectx.lot.ParseService;
 import com.bj4.yhh.projectx.lot.UpdatableFragment;
@@ -74,6 +75,20 @@ public class MainActivity extends Activity implements
         registerReceiver();
     }
 
+    public void onResume() {
+        super.onResume();
+        SharedPreferenceManager manager = SharedPreferenceManager
+                .getInstance(getApplicationContext());
+        if (manager.hasSettingChanged()) {
+            updateAllListData();
+            manager.settingChanged(false);
+        }
+    }
+
+    public void onPause() {
+        super.onPause();
+    }
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
         @Override
@@ -86,6 +101,12 @@ public class MainActivity extends Activity implements
             }
         }
     };
+
+    private void updateAllListData() {
+        updateListData(LotteryData.TYPE_HK6);
+        updateListData(LotteryData.TYPE_539);
+        updateListData(LotteryData.TYPE_WELI);
+    }
 
     private void updateListData(int gameType) {
         HashMap<Integer, Fragment> fragments = mFragments.get(gameType);
@@ -299,6 +320,16 @@ public class MainActivity extends Activity implements
             startUpdateAllService();
         } else if (id == R.id.update_last) {
             startUpdateRecently();
+        } else if (id == R.id.settings) {
+            Intent intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.add_new_data) {
+            AddNewDataDialog dialog = AddNewDataDialog.newInstance(new AddNewDataDialog.Callback() {
+                @Override
+                public void doPositive() {
+                }
+            }, mCurrentGameType);
+            dialog.show(getFragmentManager(), "AddNewDataDialog");
         }
         return super.onOptionsItemSelected(item);
     }

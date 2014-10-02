@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ProjectX</string>
+    <string name="app_name">報表小工具</string>
     <string name="title_section1">順序</string>
     <string name="title_section2">合數</string>
     <string name="title_section3">尾數</string>
@@ -24,5 +24,13 @@
     <string name="compare_to_previous">上一期比對</string>
     <string name="compare_to_next">下一期比對</string>
     <string name="services_updating">正在更新中</string>
-
+    <string name="settings">設定</string>
+	<string name="settings_column_grid_bg">格線顏色</string>
+	<string name="black">黑色</string>
+	<string name="blue">藍色</string>
+	<string name="grey">灰色</string>
+	<string name="delete_complete_toast">已刪除資料期數:</string>
+	<string name="delete_confirm_dialog_title">是否確定刪除資料</string>
+	<string name="delete_confirm_dialog_message">不連續的刪除資料可能會導致更新失敗！</string>
+	<string name="add_new_data">新增資料</string>
 </resources>

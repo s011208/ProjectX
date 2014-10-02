@@ -79,6 +79,11 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
         return rtn;
     }
 
+    public void deleteData(int type, long number) {
+        String table = getTableName(type);
+        getDatabase().delete(table, COLUMN_NUMBER + "=" + number, null);
+    }
+
     public ArrayList<LotteryData> getData(int type) {
         final ArrayList<LotteryData> rtn = new ArrayList<LotteryData>();
         String table = getTableName(type);

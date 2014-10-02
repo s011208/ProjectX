@@ -41,6 +41,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.bj4.yhh.projectx.SettingActivity"
+            android:label="@string/settings"
+            android:screenOrientation="sensorLandscape" >
+        </activity>
 
         <service android:name="com.bj4.yhh.projectx.lot.hk6.HK6ParseService" >
         </service>

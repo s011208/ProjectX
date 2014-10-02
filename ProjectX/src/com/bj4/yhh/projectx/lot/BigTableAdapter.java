@@ -51,6 +51,8 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     private final ArrayList<Integer> mOrderedList = new ArrayList<Integer>();
 
     private Callback mCallback;
+    
+    private int mGridColorResource = 0;
 
     public BigTableAdapter(Context context, final int gameType, final int fragmentType,
             final Callback cb) {
@@ -81,6 +83,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     }
 
     private void initData() {
+        mGridColorResource = Utils.getGridColorResource(mContext);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             new DataLoadTask(mContext, GAME_TYPE, this).executeOnExecutor(
                     AsyncTask.THREAD_POOL_EXECUTOR);
@@ -120,7 +123,6 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             holder.mDate.setTextSize(mTableTextSize);
             holder.mDate.setEllipsize(TruncateAt.END);
             holder.mDate.setGravity(Gravity.CENTER);
-            holder.mDate.setBackgroundResource(R.drawable.column_bg);
             LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mTableDateWidth,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             container.addView(holder.mDate, ll);
@@ -129,7 +131,6 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
                 txt.setSingleLine();
                 txt.setGravity(Gravity.CENTER);
                 txt.setTextSize(mTableTextSize);
-                txt.setBackgroundResource(R.drawable.column_bg);
                 LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(mTableNumberWidth,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 container.addView(txt, tl);
@@ -140,6 +141,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             holder = (ViewHolder)convertView.getTag();
             container = (LinearLayout)convertView;
         }
+        holder.mDate.setBackgroundResource(mGridColorResource);
         LotteryData data = getItem(position);
         holder.mDate.setText(data.mDate);
         for (int i = 1; i < container.getChildCount(); i++) {
@@ -186,6 +188,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             } else {
                 holder.mText.get(i - 1).setText(null);
             }
+            holder.mText.get(i - 1).setBackgroundResource(mGridColorResource);
         }
         return convertView;
     }
