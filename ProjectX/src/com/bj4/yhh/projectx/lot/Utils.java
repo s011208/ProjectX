@@ -25,6 +25,14 @@ public class Utils {
         return rtn;
     }
 
+    public static final ArrayList<Integer> getOrderedListSeperatedPosition(final int totalNumber) {
+        final ArrayList<Integer> rtn = new ArrayList<Integer>();
+        for (int i = 0; i < totalNumber % 10; i++) {
+            rtn.add(i * 10);
+        }
+        return rtn;
+    }
+
     public static final ArrayList<Integer> getCombinationList(final int totalNumber) {
         final ArrayList<Integer> rtn = new ArrayList<Integer>();
         HashMap<Integer, ArrayList<Integer>> tempMap = new HashMap<Integer, ArrayList<Integer>>();
@@ -48,6 +56,18 @@ public class Utils {
         return rtn;
     }
 
+    public static final ArrayList<Integer> getCombinationListSeperatedPosition(final int totalNumber) {
+        final ArrayList<Integer> rtn = new ArrayList<Integer>();
+        int ceil = (int)Math.ceil(totalNumber / 10d);
+        int floor = (int)Math.floor(totalNumber / 10d);
+        rtn.add(floor);
+        for (int i = floor + 1; i <= totalNumber; i++) {
+            if ((i - floor) % ceil == 0)
+                rtn.add(i);
+        }
+        return rtn;
+    }
+
     public static final ArrayList<Integer> getLastList(final int totalNumber) {
         final ArrayList<Integer> rtn = new ArrayList<Integer>();
         HashMap<Integer, ArrayList<Integer>> tempMap = new HashMap<Integer, ArrayList<Integer>>();
@@ -66,6 +86,18 @@ public class Utils {
             if (tempList != null) {
                 rtn.addAll(tempList);
             }
+        }
+        return rtn;
+    }
+
+    public static final ArrayList<Integer> getLastListSeperatedPosition(final int totalNumber) {
+        final ArrayList<Integer> rtn = new ArrayList<Integer>();
+        int ceil = (int)Math.ceil(totalNumber / 10d);
+        int floor = (int)Math.floor(totalNumber / 10d);
+        rtn.add(floor);
+        for (int i = floor + 1; i <= totalNumber; i++) {
+            if ((i - floor) % ceil == 0)
+                rtn.add(i);
         }
         return rtn;
     }
@@ -93,6 +125,23 @@ public class Utils {
                 break;
             case SharedPreferenceManager.GRID_COLOR_BLACK:
                 rtn = R.drawable.black_column_bg;
+                break;
+        }
+        return rtn;
+    }
+    
+    public static int getGridColorWithExtraRightResource(Context context) {
+        SharedPreferenceManager manager = SharedPreferenceManager.getInstance(context);
+        int rtn = R.drawable.blue_column_bg_with_extra_right;
+        switch (manager.getGridColor()) {
+            case SharedPreferenceManager.GRID_COLOR_BLUE:
+                rtn = R.drawable.blue_column_bg_with_extra_right;
+                break;
+            case SharedPreferenceManager.GRID_COLOR_GREY:
+                rtn = R.drawable.grey_column_bg_with_extra_right;
+                break;
+            case SharedPreferenceManager.GRID_COLOR_BLACK:
+                rtn = R.drawable.black_column_bg_with_extra_right;
                 break;
         }
         return rtn;

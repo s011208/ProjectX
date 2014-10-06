@@ -50,9 +50,13 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     private final ArrayList<Integer> mOrderedList = new ArrayList<Integer>();
 
+    private final ArrayList<Integer> mSeperatedPositionList = new ArrayList<Integer>();
+
     private Callback mCallback;
-    
+
     private int mGridColorResource = 0;
+
+    private int mGridColorWithExtraRightResource = 0;
 
     public BigTableAdapter(Context context, final int gameType, final int fragmentType,
             final Callback cb) {
@@ -67,26 +71,37 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         mTableTextSize = r.getDimension(R.dimen.table_text_size);
         mTableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
         mTableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
+        initOrderedList();
+        initData();
+    }
+
+    private void initOrderedList() {
         switch (FRAGMENT_TYPE) {
             case MainActivity.FRAGMENT_TYPE_LAST:
                 mOrderedList.addAll(Utils.getLastList(TOTAL_NUMBER_COUNT));
+                mSeperatedPositionList.addAll(Utils
+                        .getLastListSeperatedPosition(TOTAL_NUMBER_COUNT));
                 break;
             case MainActivity.FRAGMENT_TYPE_COMBINATION:
                 mOrderedList.addAll(Utils.getCombinationList(TOTAL_NUMBER_COUNT));
+                mSeperatedPositionList.addAll(Utils
+                        .getCombinationListSeperatedPosition(TOTAL_NUMBER_COUNT));
                 break;
             case MainActivity.FRAGMENT_TYPE_ORDERED:
                 mOrderedList.addAll(Utils.getOrderedList(TOTAL_NUMBER_COUNT));
+                mSeperatedPositionList.addAll(Utils
+                        .getOrderedListSeperatedPosition(TOTAL_NUMBER_COUNT));
                 break;
         }
 
-        initData();
     }
 
     private void initData() {
         mGridColorResource = Utils.getGridColorResource(mContext);
+        mGridColorWithExtraRightResource = Utils.getGridColorWithExtraRightResource(mContext);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            new DataLoadTask(mContext, GAME_TYPE, this).executeOnExecutor(
-                    AsyncTask.THREAD_POOL_EXECUTOR);
+            new DataLoadTask(mContext, GAME_TYPE, this)
+                    .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
             new DataLoadTask(mContext, GAME_TYPE, this).execute();
         }
@@ -188,7 +203,11 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             } else {
                 holder.mText.get(i - 1).setText(null);
             }
-            holder.mText.get(i - 1).setBackgroundResource(mGridColorResource);
+            if (mSeperatedPositionList.contains(i)) {
+                holder.mText.get(i - 1).setBackgroundResource(mGridColorWithExtraRightResource);
+            } else {
+                holder.mText.get(i - 1).setBackgroundResource(mGridColorResource);
+            }
         }
         return convertView;
     }

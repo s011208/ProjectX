@@ -89,7 +89,7 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
         String table = getTableName(type);
         if (table != null) {
             Cursor data = getDatabase().query(table, null, null, null, null, null,
-                    COLUMN_NUMBER + " desc");
+                    COLUMN_NUMBER + " asc");
             if (data != null) {
                 try {
                     final int numberIndex = data.getColumnIndex(COLUMN_NUMBER);
