@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
+import com.bj4.yhh.projectx.lot.dialogs.DeleteDataConfirmDialog;
 
 public abstract class BigTableFragment extends Fragment implements BigTableAdapter.Callback,
         UpdatableFragment {

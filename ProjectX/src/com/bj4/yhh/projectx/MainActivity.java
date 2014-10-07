@@ -4,10 +4,10 @@ package com.bj4.yhh.projectx;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.bj4.yhh.projectx.lot.AddNewDataDialog;
 import com.bj4.yhh.projectx.lot.LotteryData;
 import com.bj4.yhh.projectx.lot.ParseService;
 import com.bj4.yhh.projectx.lot.UpdatableFragment;
+import com.bj4.yhh.projectx.lot.dialogs.AddNewDataDialog;
 import com.bj4.yhh.projectx.lot.hk6.HK6AddOrMinusFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6CombinationFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6LastFragment;
