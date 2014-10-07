@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.bj4.yhh.projectx.R;
+import com.bj4.yhh.projectx.SharedPreferenceManager;
 import com.bj4.yhh.projectx.lot.dialogs.DeleteDataConfirmDialog;
 
 public abstract class AddOrMinusFragment extends Fragment implements UpdatableFragment,
@@ -49,6 +50,9 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position,
                     long arg3) {
+                SharedPreferenceManager sPref = SharedPreferenceManager.getInstance(getActivity());
+                if (sPref.isLongClickDeleteEnable() == false)
+                    return false;
                 DeleteDataConfirmDialog dialogFragment = DeleteDataConfirmDialog
                         .newInstance(new DeleteDataConfirmDialog.Callback() {
 

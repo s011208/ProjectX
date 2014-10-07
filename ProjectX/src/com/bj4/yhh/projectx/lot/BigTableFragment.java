@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
+import com.bj4.yhh.projectx.SharedPreferenceManager;
 import com.bj4.yhh.projectx.lot.dialogs.DeleteDataConfirmDialog;
 
 public abstract class BigTableFragment extends Fragment implements BigTableAdapter.Callback,
@@ -60,12 +61,19 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position,
                     long arg3) {
+                SharedPreferenceManager sPref = SharedPreferenceManager.getInstance(getActivity());
+                if (sPref.isLongClickDeleteEnable() == false)
+                    return false;
+                final LotteryData data = mAdapter.getItem(position);
+                if (data.mIsSubTotal) {
+                    return false;
+                }
                 DeleteDataConfirmDialog dialogFragment = DeleteDataConfirmDialog
                         .newInstance(new DeleteDataConfirmDialog.Callback() {
 
                             @Override
                             public void doPositive() {
-                                LotteryData data = mAdapter.getItem(position);
+
                                 LotteryDatabaseHelper.getInstance(getActivity()).deleteData(
                                         getGameType(), data.mNumber);
                                 updateContent();

@@ -33,4 +33,5 @@
 	<string name="delete_confirm_dialog_title">是否確定刪除資料</string>
 	<string name="delete_confirm_dialog_message">不連續的刪除資料可能會導致更新失敗！</string>
 	<string name="add_new_data">新增資料</string>
+	<string name="allow_long_click_delete">允許長按刪除</string>
 </resources>
