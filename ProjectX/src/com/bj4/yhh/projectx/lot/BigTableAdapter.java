@@ -161,52 +161,62 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         holder.mDate.setText(data.mDate);
         for (int i = 1; i < container.getChildCount(); i++) {
             final int indexNumber = mOrderedList.get(i - 1);
-            boolean show = false;
-            if (AWARDS_NUMBER_COUNT >= 7) {
-                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                        || data.m4 == indexNumber || data.m5 == indexNumber
-                        || data.m6 == indexNumber || data.m7 == indexNumber) {
-                    show = true;
+            if (data.mIsSubTotal) {
+                if (mSeperatedPositionList.contains(i)) {
+                    holder.mText.get(i - 1).setBackgroundResource(
+                            R.drawable.red_column_bg_with_extra_right);
+                } else {
+                    holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
                 }
-            } else if (AWARDS_NUMBER_COUNT >= 6) {
-                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                        || data.m4 == indexNumber || data.m5 == indexNumber
-                        || data.m6 == indexNumber) {
-                    show = true;
-                }
-            } else if (AWARDS_NUMBER_COUNT >= 5) {
-                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                        || data.m4 == indexNumber || data.m5 == indexNumber) {
-                    show = true;
-                }
-            } else if (AWARDS_NUMBER_COUNT >= 4) {
-                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                        || data.m4 == indexNumber) {
-                    show = true;
-                }
-            } else if (AWARDS_NUMBER_COUNT >= 3) {
-                if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber) {
-                    show = true;
-                }
-            } else if (AWARDS_NUMBER_COUNT >= 2) {
-                if (data.m1 == indexNumber || data.m2 == indexNumber) {
-                    show = true;
-                }
-            } else if (AWARDS_NUMBER_COUNT >= 1) {
-                if (data.m1 == indexNumber) {
-                    show = true;
-                }
-            }
-            if (show) {
-                holder.mText.get(i - 1).setText(
-                        String.valueOf(Utils.NUMBER_FORMATTER.format(indexNumber)));
+                holder.mText.get(i - 1).setText(String.valueOf(data.mSubTotal.get(indexNumber, 0)));
             } else {
-                holder.mText.get(i - 1).setText(null);
-            }
-            if (mSeperatedPositionList.contains(i)) {
-                holder.mText.get(i - 1).setBackgroundResource(mGridColorWithExtraRightResource);
-            } else {
-                holder.mText.get(i - 1).setBackgroundResource(mGridColorResource);
+                boolean show = false;
+                if (AWARDS_NUMBER_COUNT >= 7) {
+                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                            || data.m4 == indexNumber || data.m5 == indexNumber
+                            || data.m6 == indexNumber || data.m7 == indexNumber) {
+                        show = true;
+                    }
+                } else if (AWARDS_NUMBER_COUNT >= 6) {
+                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                            || data.m4 == indexNumber || data.m5 == indexNumber
+                            || data.m6 == indexNumber) {
+                        show = true;
+                    }
+                } else if (AWARDS_NUMBER_COUNT >= 5) {
+                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                            || data.m4 == indexNumber || data.m5 == indexNumber) {
+                        show = true;
+                    }
+                } else if (AWARDS_NUMBER_COUNT >= 4) {
+                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
+                            || data.m4 == indexNumber) {
+                        show = true;
+                    }
+                } else if (AWARDS_NUMBER_COUNT >= 3) {
+                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber) {
+                        show = true;
+                    }
+                } else if (AWARDS_NUMBER_COUNT >= 2) {
+                    if (data.m1 == indexNumber || data.m2 == indexNumber) {
+                        show = true;
+                    }
+                } else if (AWARDS_NUMBER_COUNT >= 1) {
+                    if (data.m1 == indexNumber) {
+                        show = true;
+                    }
+                }
+                if (show) {
+                    holder.mText.get(i - 1).setText(
+                            String.valueOf(Utils.NUMBER_FORMATTER.format(indexNumber)));
+                } else {
+                    holder.mText.get(i - 1).setText(null);
+                }
+                if (mSeperatedPositionList.contains(i)) {
+                    holder.mText.get(i - 1).setBackgroundResource(mGridColorWithExtraRightResource);
+                } else {
+                    holder.mText.get(i - 1).setBackgroundResource(mGridColorResource);
+                }
             }
         }
         return convertView;
