@@ -2,6 +2,9 @@
 package com.bj4.yhh.projectx.lot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import com.bj4.yhh.projectx.SharedPreferenceManager;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -88,8 +91,16 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
         final ArrayList<LotteryData> rtn = new ArrayList<LotteryData>();
         String table = getTableName(type);
         if (table != null) {
-            Cursor data = getDatabase().query(table, null, null, null, null, null,
-                    COLUMN_NUMBER + " asc");
+            SharedPreferenceManager pref = SharedPreferenceManager.getInstance(mContext);
+            Cursor data = null;
+            final int displayLines = pref.getDisplayLines();
+            if (displayLines == SharedPreferenceManager.DEFAULT_DISPLAY_LINES) {
+                data = getDatabase().query(table, null, null, null, null, null,
+                        COLUMN_NUMBER + " desc");
+            } else {
+                data = getDatabase().query(table, null, null, null, null, null,
+                        COLUMN_NUMBER + " desc limit " + displayLines);
+            }
             if (data != null) {
                 try {
                     final int numberIndex = data.getColumnIndex(COLUMN_NUMBER);
@@ -109,6 +120,7 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
                     }
                 } finally {
                     data.close();
+                    Collections.reverse(rtn);
                 }
             }
         }

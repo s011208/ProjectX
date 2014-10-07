@@ -8,6 +8,7 @@ import com.bj4.yhh.projectx.lot.LotteryData;
 import com.bj4.yhh.projectx.lot.ParseService;
 import com.bj4.yhh.projectx.lot.UpdatableFragment;
 import com.bj4.yhh.projectx.lot.dialogs.AddNewDataDialog;
+import com.bj4.yhh.projectx.lot.dialogs.DisplayLinesDialog;
 import com.bj4.yhh.projectx.lot.hk6.HK6AddOrMinusFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6CombinationFragment;
 import com.bj4.yhh.projectx.lot.hk6.HK6LastFragment;
@@ -105,7 +106,7 @@ public class MainActivity extends Activity implements
     private void updateAllListData() {
         updateListData(LotteryData.TYPE_HK6);
         updateListData(LotteryData.TYPE_539);
-        updateListData(LotteryData.TYPE_WELI);
+        // updateListData(LotteryData.TYPE_WELI);
     }
 
     private void updateListData(int gameType) {
@@ -330,6 +331,15 @@ public class MainActivity extends Activity implements
                 }
             }, mCurrentGameType);
             dialog.show(getFragmentManager(), "AddNewDataDialog");
+        } else if (id == R.id.display_lines) {
+            DisplayLinesDialog dialog = DisplayLinesDialog
+                    .newInstance(new DisplayLinesDialog.Callback() {
+                        @Override
+                        public void doPositive() {
+                            updateAllListData();
+                        }
+                    });
+            dialog.show(getFragmentManager(), "DisplayLinesDialog");
         }
         return super.onOptionsItemSelected(item);
     }

@@ -19,6 +19,11 @@ public class SharedPreferenceManager {
     // long click delete
     public static final String KEY_LONG_CLICK_DELETE = "key_long_click_delete";
 
+    // display lines
+    public static final String KEY_DISPLAY_LINES = "key_display_lines";
+
+    public static final int DEFAULT_DISPLAY_LINES = 0;
+
     private static SharedPreferenceManager sInstance;
 
     public synchronized static SharedPreferenceManager getInstance(Context context) {
@@ -60,5 +65,15 @@ public class SharedPreferenceManager {
 
     public void setLongClickDeleteEnable(boolean enable) {
         mPref.edit().putBoolean(KEY_LONG_CLICK_DELETE, enable).apply();
+    }
+
+    public int getDisplayLines() {
+        return mPref.getInt(KEY_DISPLAY_LINES, DEFAULT_DISPLAY_LINES);
+    }
+
+    public void setDisplayLines(int lines) {
+        if (lines < 0)
+            lines = DEFAULT_DISPLAY_LINES;
+        mPref.edit().putInt(KEY_DISPLAY_LINES, lines).commit();
     }
 }

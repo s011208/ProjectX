@@ -28,6 +28,11 @@
         android:showAsAction="never"
         android:title="@string/add_new_data"/>
     <item
+        android:id="@+id/display_lines"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/display_lines"/>
+    <item
         android:id="@+id/settings"
         android:orderInCategory="100"
         android:showAsAction="never"
