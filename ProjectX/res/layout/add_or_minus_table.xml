@@ -27,7 +27,6 @@
         android:id="@+id/radio_groups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/h_scrollview"
         android:orientation="horizontal"
         android:padding="6dp" >
@@ -44,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+1" />
 
             <RadioButton
@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+2" />
 
             <RadioButton
@@ -58,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+3" />
 
             <RadioButton
@@ -65,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+4" />
 
             <RadioButton
@@ -72,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+5" />
 
             <RadioButton
@@ -79,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+6" />
 
             <RadioButton
@@ -86,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+7" />
 
             <RadioButton
@@ -93,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+8" />
 
             <RadioButton
@@ -100,6 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+9" />
 
             <RadioButton
@@ -107,6 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="+10" />
         </RadioGroup>
 
@@ -122,6 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-1" />
 
             <RadioButton
@@ -129,6 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-2" />
 
             <RadioButton
@@ -136,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-3" />
 
             <RadioButton
@@ -143,6 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-4" />
 
             <RadioButton
@@ -150,6 +163,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-5" />
 
             <RadioButton
@@ -157,6 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-6" />
 
             <RadioButton
@@ -164,6 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-7" />
 
             <RadioButton
@@ -171,6 +187,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-8" />
 
             <RadioButton
@@ -178,6 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-9" />
 
             <RadioButton
@@ -185,6 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:padding="@dimen/add_or_minus_table_controll_padding"
                 android:text="-10" />
         </RadioGroup>
     </LinearLayout>
@@ -203,6 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="@dimen/add_or_minus_table_controll_padding"
             android:text="@string/compare_to_previous" />
 
         <RadioButton
@@ -210,6 +230,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="@dimen/add_or_minus_table_controll_padding"
             android:text="@string/compare_to_next" />
     </RadioGroup>
 
