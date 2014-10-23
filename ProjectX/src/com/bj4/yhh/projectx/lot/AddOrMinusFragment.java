@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -27,6 +29,8 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
     private AddOrMinusAdapter mAdapter;
 
     private RadioGroup mAdd, mMinus, mDirections;
+
+    private Button mMoveToTop, mMoveToBottom;
 
     private int mValue = 0;
 
@@ -90,6 +94,21 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
                         mAdapter.setComparedDirection(AddOrMinusAdapter.COMPARED_TO_NEXT);
                         break;
                 }
+            }
+        });
+        mMoveToTop = (Button)mRootView.findViewById(R.id.move_to_top);
+        mMoveToTop.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                mDataList.setSelection(0);
+            }
+        });
+        mMoveToBottom = (Button)mRootView.findViewById(R.id.move_to_bottom);
+        mMoveToBottom.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                mDataList.setSelection(mAdapter.getCount());
             }
         });
     }
