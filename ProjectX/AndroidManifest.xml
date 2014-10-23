@@ -48,14 +48,17 @@
             android:screenOrientation="sensorLandscape" >
         </activity>
 
-        <!-- auto update receiver -->
-        <receiver android:name="com.bj4.yhh.projectx.AutoUpdateReceiver" >
+        <!-- boot complete receiver -->
+        <receiver android:name="com.bj4.yhh.projectx.BootCompletedReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-
+        <!-- auto update service -->
+        <service android:name="com.bj4.yhh.projectx.AutoUpdateService" >
+        </service>
+        <!-- update service -->
         <service android:name="com.bj4.yhh.projectx.lot.hk6.HK6ParseService" >
         </service>
         <service android:name="com.bj4.yhh.projectx.lot.lt539.LT539ParseService" >
