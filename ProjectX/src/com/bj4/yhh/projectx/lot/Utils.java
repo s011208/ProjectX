@@ -8,9 +8,12 @@ import java.util.HashMap;
 
 import com.bj4.yhh.projectx.R;
 import com.bj4.yhh.projectx.SharedPreferenceManager;
+import com.bj4.yhh.projectx.lot.hk6.HK6ParseService;
+import com.bj4.yhh.projectx.lot.lt539.LT539ParseService;
 
 import android.app.Notification;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 public class Utils {
@@ -129,7 +132,7 @@ public class Utils {
         }
         return rtn;
     }
-    
+
     public static int getGridColorWithExtraRightResource(Context context) {
         SharedPreferenceManager manager = SharedPreferenceManager.getInstance(context);
         int rtn = R.drawable.blue_column_bg_with_extra_right;
@@ -146,4 +149,50 @@ public class Utils {
         }
         return rtn;
     }
+
+    public static void startUpdateAllService(Context context, int type) {
+        switch (type) {
+            case LotteryData.TYPE_HK6:
+                context.startService(new Intent(context, HK6ParseService.class));
+                break;
+            case LotteryData.TYPE_539:
+                context.startService(new Intent(context, LT539ParseService.class));
+                break;
+        }
+    }
+
+    public static void startUpdateAllService(Context context) {
+        context.startService(new Intent(context, HK6ParseService.class));
+        context.startService(new Intent(context, LT539ParseService.class));
+        // startService(new Intent(this, WeLiParseService.class));
+    }
+
+    public static void startUpdateRecently(Context context, int type) {
+        switch (type) {
+            case LotteryData.TYPE_HK6:
+                Intent hk6 = new Intent(context, HK6ParseService.class);
+                hk6.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+                context.startService(hk6);
+                break;
+            case LotteryData.TYPE_539:
+                Intent lt539 = new Intent(context, LT539ParseService.class);
+                lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+                context.startService(lt539);
+                break;
+        }
+    }
+
+    public static void startUpdateRecently(Context context) {
+        Intent hk6 = new Intent(context, HK6ParseService.class);
+        hk6.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+        context.startService(hk6);
+        Intent lt539 = new Intent(context, LT539ParseService.class);
+        lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+        context.startService(lt539);
+        // Intent weli = new Intent(this, WeLiParseService.class);
+        // weli.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA,
+        // true);
+        // startService(weli);
+    }
+
 }

@@ -83,6 +83,7 @@ public abstract class ParseService extends Service implements ParseTask.ParseTas
     private void parseAll() {
         mUpdatedProgress = 0;
         for (int i = 1; i <= getAllPageSize(); i++) {
+            LotteryDatabaseHelper.getInstance(getApplicationContext()).clearData(getGameType());
             ++mUpdatedProgress;
             new ParseTask(this, getParsedUrl() + i, getGameType(), this).execute();
         }

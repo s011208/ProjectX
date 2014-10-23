@@ -7,6 +7,7 @@ import java.util.Iterator;
 import com.bj4.yhh.projectx.lot.LotteryData;
 import com.bj4.yhh.projectx.lot.ParseService;
 import com.bj4.yhh.projectx.lot.UpdatableFragment;
+import com.bj4.yhh.projectx.lot.Utils;
 import com.bj4.yhh.projectx.lot.dialogs.AddNewDataDialog;
 import com.bj4.yhh.projectx.lot.dialogs.DisplayLinesDialog;
 import com.bj4.yhh.projectx.lot.hk6.HK6AddOrMinusFragment;
@@ -151,39 +152,6 @@ public class MainActivity extends Activity implements
         super.onDestroy();
     }
 
-    private boolean isServicesUpdatable() {
-        boolean rtn = true;
-        if (rtn) {
-        } else {
-            Toast.makeText(getApplicationContext(), R.string.services_updating, Toast.LENGTH_LONG)
-                    .show();
-        }
-        return rtn;
-    }
-
-    private void startUpdateAllService() {
-        if (isServicesUpdatable()) {
-            startService(new Intent(this, HK6ParseService.class));
-            startService(new Intent(this, LT539ParseService.class));
-            // startService(new Intent(this, WeLiParseService.class));
-        }
-    }
-
-    private void startUpdateRecently() {
-        if (isServicesUpdatable()) {
-            Intent hk6 = new Intent(this, HK6ParseService.class);
-            hk6.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
-            startService(hk6);
-            Intent lt539 = new Intent(this, LT539ParseService.class);
-            lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
-            startService(lt539);
-            // Intent weli = new Intent(this, WeLiParseService.class);
-            // weli.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA,
-            // true);
-            // startService(weli);
-        }
-    }
-
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         mCurrentFragmentType = position;
@@ -318,9 +286,9 @@ public class MainActivity extends Activity implements
             // restoreActionBar();
             // return true;
         } else if (id == R.id.update_all) {
-            startUpdateAllService();
+            Utils.startUpdateAllService(this);
         } else if (id == R.id.update_last) {
-            startUpdateRecently();
+            Utils.startUpdateRecently(this);
         } else if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);

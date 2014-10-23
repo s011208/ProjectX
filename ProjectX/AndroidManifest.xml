@@ -24,6 +24,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -46,6 +47,14 @@
             android:label="@string/settings"
             android:screenOrientation="sensorLandscape" >
         </activity>
+
+        <!-- auto update receiver -->
+        <receiver android:name="com.bj4.yhh.projectx.AutoUpdateReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
 
         <service android:name="com.bj4.yhh.projectx.lot.hk6.HK6ParseService" >
         </service>

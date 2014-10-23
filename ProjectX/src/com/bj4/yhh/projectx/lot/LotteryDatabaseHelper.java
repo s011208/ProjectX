@@ -87,6 +87,11 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
         getDatabase().delete(table, COLUMN_NUMBER + "=" + number, null);
     }
 
+    public void clearData(int type) {
+        String table = getTableName(type);
+        getDatabase().delete(table, null, null);
+    }
+
     public ArrayList<LotteryData> getData(int type) {
         final ArrayList<LotteryData> rtn = new ArrayList<LotteryData>();
         String table = getTableName(type);
@@ -213,6 +218,24 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
                         + " TEXT, " + COLUMN_M2 + " TEXT, " + COLUMN_M3 + " TEXT, " + COLUMN_M4
                         + " TEXT, " + COLUMN_M5 + " TEXT, " + COLUMN_M6 + " TEXT, " + COLUMN_M7
                         + " TEXT)");
+    }
+
+    public boolean isTableEmpty(int type) {
+        String table = getTableName(type);
+        Cursor tableData = getDatabase().rawQuery("select count(*) from " + table, null);
+        boolean rtn = true;
+        if (tableData != null) {
+            try {
+                if (tableData.moveToFirst()) {
+                    int count = tableData.getInt(0);
+                    if (count > 0)
+                        rtn = false;
+                }
+            } finally {
+                tableData.close();
+            }
+        }
+        return rtn;
     }
 
     private SQLiteDatabase getDatabase() {
