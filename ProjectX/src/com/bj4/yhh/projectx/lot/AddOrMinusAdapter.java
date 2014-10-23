@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.text.TextUtils.TruncateAt;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callback {
+
+    private static final String TAG = "QQQQ";
+
+    private static final boolean DEBUG = false;
 
     private final int TOTAL_NUMBER_COUNT;
 
@@ -41,12 +46,6 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private int mComparedValue = 0;
 
-    public static final int COMPARED_TO_PREVIOUS = 0;
-
-    public static final int COMPARED_TO_NEXT = 1;
-
-    private int mComparedDirection = COMPARED_TO_PREVIOUS;
-
     private int mGridColorResource = 0;
 
     public AddOrMinusAdapter(Context context, final int gameType) {
@@ -64,11 +63,6 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     public void setComparedValue(int comparedValue) {
         mComparedValue = comparedValue;
-        super.notifyDataSetChanged();
-    }
-
-    public void setComparedDirection(int direction) {
-        mComparedDirection = direction;
         super.notifyDataSetChanged();
     }
 
@@ -103,6 +97,8 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if (DEBUG)
+            Log.d(TAG, "getView position: " + position);
         ViewHolder holder = null;
         LinearLayout container = null;
         if (convertView == null) {
@@ -131,16 +127,12 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
             holder = (ViewHolder)convertView.getTag();
             container = (LinearLayout)convertView;
         }
-        LotteryData data = getItem(position);
+        final LotteryData data = getItem(position);
         LotteryData comparedData = null;
         try {
-            switch (mComparedDirection) {
-                case COMPARED_TO_PREVIOUS:
-                    comparedData = getItem(position + 1);
-                    break;
-                case COMPARED_TO_NEXT:
-                    comparedData = getItem(position - 1);
-                    break;
+            comparedData = getItem(position + 1);
+            if (comparedData != null && comparedData.mIsSubTotal) {
+                comparedData = getItem(position + 2);
             }
         } catch (Exception e) {
             comparedData = null;
@@ -148,143 +140,84 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
         holder.mDate.setBackgroundResource(mGridColorResource);
         holder.mDate.setText(data.mDate);
         if (container.getChildCount() > 1) {
-            if (data.m1 != LotteryData.NOT_USED) {
-                holder.mText.get(0).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m1)));
-                boolean isHit = isHit(data.m1, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(0).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(0).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(0).setText(null);
-                holder.mText.get(0).setTextColor(Color.BLACK);
-            }
-            holder.mText.get(0).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(0), data.m1, comparedData);
         }
         if (container.getChildCount() > 2) {
-            if (data.m2 != LotteryData.NOT_USED) {
-                holder.mText.get(1).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m2)));
-                boolean isHit = isHit(data.m2, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(1).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(1).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(1).setTextColor(Color.BLACK);
-                holder.mText.get(1).setText(null);
-            }
-            holder.mText.get(1).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(1), data.m2, comparedData);
         }
         if (container.getChildCount() > 3) {
-            if (data.m3 != LotteryData.NOT_USED) {
-                holder.mText.get(2).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m3)));
-                boolean isHit = isHit(data.m3, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(2).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(2).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(2).setTextColor(Color.BLACK);
-                holder.mText.get(2).setText(null);
-            }
-            holder.mText.get(2).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(2), data.m3, comparedData);
         }
         if (container.getChildCount() > 4) {
-            if (data.m4 != LotteryData.NOT_USED) {
-                holder.mText.get(3).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m4)));
-                boolean isHit = isHit(data.m4, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(3).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(3).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(3).setTextColor(Color.BLACK);
-                holder.mText.get(3).setText(null);
-            }
-            holder.mText.get(3).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(3), data.m4, comparedData);
         }
         if (container.getChildCount() > 5) {
-            if (data.m5 != LotteryData.NOT_USED) {
-                holder.mText.get(4).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m5)));
-                boolean isHit = isHit(data.m5, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(4).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(4).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(4).setTextColor(Color.BLACK);
-                holder.mText.get(4).setText(null);
-            }
-            holder.mText.get(4).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(4), data.m5, comparedData);
         }
         if (container.getChildCount() > 6) {
-            if (data.m6 != LotteryData.NOT_USED) {
-                holder.mText.get(5).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m6)));
-                boolean isHit = isHit(data.m6, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(5).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(5).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(5).setTextColor(Color.BLACK);
-                holder.mText.get(5).setText(null);
-            }
-            holder.mText.get(5).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(5), data.m6, comparedData);
         }
         if (container.getChildCount() > 7) {
-            if (data.m7 != LotteryData.NOT_USED) {
-                holder.mText.get(6).setText(String.valueOf(Utils.NUMBER_FORMATTER.format(data.m7)));
-                boolean isHit = isHit(data.m7, comparedData, position);
-                if (isHit) {
-                    holder.mText.get(6).setTextColor(Color.RED);
-                } else {
-                    holder.mText.get(6).setTextColor(Color.BLACK);
-                }
-            } else {
-                holder.mText.get(6).setTextColor(Color.BLACK);
-                holder.mText.get(6).setText(null);
-            }
-            holder.mText.get(6).setBackgroundResource(mGridColorResource);
+            refreshTextView(holder.mText.get(6), data.m7, comparedData);
         }
         return convertView;
     }
 
-    private boolean isHit(int currentNumber, LotteryData comparedData, int currentPosition) {
+    private void refreshTextView(TextView txt, int dataValue, LotteryData comparedData) {
+        if (dataValue != LotteryData.NOT_USED) {
+            txt.setText(String.valueOf(Utils.NUMBER_FORMATTER.format(dataValue)));
+            if (DEBUG)
+                Log.v(TAG, "refreshTextView dataValue: " + dataValue);
+            boolean isHit = isHit(dataValue, comparedData);
+            if (isHit) {
+                txt.setTextColor(Color.RED);
+            } else {
+                txt.setTextColor(Color.BLACK);
+            }
+        } else {
+            txt.setTextColor(Color.BLACK);
+            txt.setText(null);
+        }
+        txt.setBackgroundResource(mGridColorResource);
+    }
+
+    private int getComparedValue(int comparedValue) {
+        final int rtn = ((comparedValue - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1;
+        if (DEBUG)
+            Log.i(TAG, "getComparedValue rtn: " + rtn);
+        return rtn;
+    }
+
+    private boolean isHit(int dataValue, LotteryData comparedData) {
         if (comparedData == null) {
             return false;
         }
         if (comparedData.m1 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m1 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m1 == getComparedValue(dataValue)) {
             return true;
         }
         if (comparedData.m2 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m2 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m2 == getComparedValue(dataValue)) {
             return true;
         }
         if (comparedData.m3 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m3 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m3 == getComparedValue(dataValue)) {
             return true;
         }
         if (comparedData.m4 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m4 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m4 == getComparedValue(dataValue)) {
             return true;
         }
         if (comparedData.m5 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m5 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m5 == getComparedValue(dataValue)) {
             return true;
         }
         if (comparedData.m6 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m6 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m6 == getComparedValue(dataValue)) {
             return true;
         }
         if (comparedData.m7 != LotteryData.NOT_USED
-                && currentNumber == ((comparedData.m7 - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1) {
+                && comparedData.m7 == getComparedValue(dataValue)) {
             return true;
         }
         return false;

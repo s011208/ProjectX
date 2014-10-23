@@ -28,7 +28,7 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
 
     private AddOrMinusAdapter mAdapter;
 
-    private RadioGroup mAdd, mMinus, mDirections;
+    private RadioGroup mAdd, mMinus;
 
     private Button mMoveToTop, mMoveToBottom;
 
@@ -78,24 +78,8 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
         });
         mAdd = (RadioGroup)mRootView.findViewById(R.id.add_group);
         mMinus = (RadioGroup)mRootView.findViewById(R.id.minus_group);
-        mDirections = (RadioGroup)mRootView.findViewById(R.id.direction_group);
-        mDirections.check(R.id.previous);
         mAdd.setOnCheckedChangeListener(this);
         mMinus.setOnCheckedChangeListener(this);
-        mDirections.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.previous:
-                        mAdapter.setComparedDirection(AddOrMinusAdapter.COMPARED_TO_PREVIOUS);
-                        break;
-                    case R.id.next:
-                        mAdapter.setComparedDirection(AddOrMinusAdapter.COMPARED_TO_NEXT);
-                        break;
-                }
-            }
-        });
         mMoveToTop = (Button)mRootView.findViewById(R.id.move_to_top);
         mMoveToTop.setOnClickListener(new OnClickListener() {
             @Override
