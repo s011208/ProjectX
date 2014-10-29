@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import com.bj4.yhh.projectx.R;
 import com.bj4.yhh.projectx.SharedPreferenceManager;
+import com.bj4.yhh.projectx.lot.blot.BLotParseService;
 import com.bj4.yhh.projectx.lot.hk6.HK6ParseService;
 import com.bj4.yhh.projectx.lot.lt539.LT539ParseService;
 
@@ -158,10 +159,14 @@ public class Utils {
             case LotteryData.TYPE_539:
                 context.startService(new Intent(context, LT539ParseService.class));
                 break;
+            case LotteryData.TYPE_BLOT:
+                context.startService(new Intent(context, BLotParseService.class));
+                break;
         }
     }
 
     public static void startUpdateAllService(Context context) {
+        context.startService(new Intent(context, BLotParseService.class));
         context.startService(new Intent(context, HK6ParseService.class));
         context.startService(new Intent(context, LT539ParseService.class));
         // startService(new Intent(this, WeLiParseService.class));
@@ -179,6 +184,11 @@ public class Utils {
                 lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
                 context.startService(lt539);
                 break;
+            case LotteryData.TYPE_BLOT:
+                Intent blot = new Intent(context, BLotParseService.class);
+                blot.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+                context.startService(blot);
+                break;
         }
     }
 
@@ -189,6 +199,9 @@ public class Utils {
         Intent lt539 = new Intent(context, LT539ParseService.class);
         lt539.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
         context.startService(lt539);
+        Intent blot = new Intent(context, BLotParseService.class);
+        blot.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA, true);
+        context.startService(blot);
         // Intent weli = new Intent(this, WeLiParseService.class);
         // weli.putExtra(ParseService.INTENT_EXTRAS_PARSE_RECENT_DATA,
         // true);

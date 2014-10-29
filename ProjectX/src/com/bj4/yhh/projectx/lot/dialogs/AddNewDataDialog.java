@@ -60,6 +60,9 @@ public class AddNewDataDialog extends DialogFragment {
             case LotteryData.TYPE_WELI:
                 rtn += getActivity().getString(R.string.weli);
                 break;
+            case LotteryData.TYPE_BLOT:
+                rtn += getActivity().getString(R.string.blot);
+                break;
         }
         return rtn;
     }

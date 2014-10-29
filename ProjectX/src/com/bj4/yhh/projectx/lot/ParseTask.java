@@ -91,6 +91,19 @@ public class ParseTask extends AsyncTask<Void, Void, Void> {
                         int m6 = Integer.parseInt(raw[5].trim());
                         int m7 = Integer.parseInt(tdEles.get(3).text().trim());
                         mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
+                    } else if (mGameType == LotteryData.TYPE_BLOT) {
+                        long number = Long.valueOf(tdEles.get(0).text());
+                        String date = tdEles.get(1).text();
+                        String[] raw = tdEles.get(2).text().replaceAll(",", "")
+                                .replaceAll("  ", " ").split(" ");
+                        int m1 = Integer.parseInt(raw[0].trim());
+                        int m2 = Integer.parseInt(raw[1].trim());
+                        int m3 = Integer.parseInt(raw[2].trim());
+                        int m4 = Integer.parseInt(raw[3].trim());
+                        int m5 = Integer.parseInt(raw[4].trim());
+                        int m6 = Integer.parseInt(raw[5].trim());
+                        int m7 = Integer.parseInt(tdEles.get(3).text().trim());
+                        mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
                     }
                 } catch (Exception e) {
                     if (DEBUG)

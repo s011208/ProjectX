@@ -13,6 +13,8 @@ public class LotteryData {
     public static final int TYPE_539 = 1;
 
     public static final int TYPE_WELI = 2;
+    
+    public static final int TYPE_BLOT = 3;
 
     public static final int NOT_USED = -1;
 
@@ -34,6 +36,8 @@ public class LotteryData {
                 return 39;
             case TYPE_WELI:
                 return 39;
+            case TYPE_BLOT:
+                return 49;
             default:
                 return 0;
         }
@@ -46,6 +50,8 @@ public class LotteryData {
             case TYPE_539:
                 return 5;
             case TYPE_WELI:
+                return 7;
+            case TYPE_BLOT:
                 return 7;
             default:
                 return 0;

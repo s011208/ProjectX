@@ -25,6 +25,8 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_LT539 = "lt539";
 
     private static final String TABLE_WELI = "weli";
+    
+    private static final String TABLE_BLOT = "blot";
 
     private static final String COLUMN_M1 = "m1";
 
@@ -144,6 +146,8 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
             case LotteryData.TYPE_WELI:
                 table = TABLE_WELI;
                 break;
+            case LotteryData.TYPE_BLOT:
+                table = TABLE_BLOT;
             default:
                 break;
         }
@@ -214,6 +218,12 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
                         + " TEXT)");
         getDatabase().execSQL(
                 "CREATE TABLE IF NOT EXISTS " + TABLE_WELI + " ( " + COLUMN_NUMBER
+                        + " INTEGER PRIMARY KEY, " + COLUMN_DATE + " TEXT, " + COLUMN_M1
+                        + " TEXT, " + COLUMN_M2 + " TEXT, " + COLUMN_M3 + " TEXT, " + COLUMN_M4
+                        + " TEXT, " + COLUMN_M5 + " TEXT, " + COLUMN_M6 + " TEXT, " + COLUMN_M7
+                        + " TEXT)");
+        getDatabase().execSQL(
+                "CREATE TABLE IF NOT EXISTS " + TABLE_BLOT + " ( " + COLUMN_NUMBER
                         + " INTEGER PRIMARY KEY, " + COLUMN_DATE + " TEXT, " + COLUMN_M1
                         + " TEXT, " + COLUMN_M2 + " TEXT, " + COLUMN_M3 + " TEXT, " + COLUMN_M4
                         + " TEXT, " + COLUMN_M5 + " TEXT, " + COLUMN_M6 + " TEXT, " + COLUMN_M7

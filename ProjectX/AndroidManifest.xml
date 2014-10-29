@@ -55,6 +55,8 @@
         </service>
         <service android:name="com.bj4.yhh.projectx.lot.weli.WeLiParseService" >
         </service>
+        <service android:name="com.bj4.yhh.projectx.lot.blot.BLotParseService" >
+        </service>
     </application>
 
 </manifest>

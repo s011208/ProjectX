@@ -8,6 +8,10 @@ import com.bj4.yhh.projectx.lot.LotteryData;
 import com.bj4.yhh.projectx.lot.ParseService;
 import com.bj4.yhh.projectx.lot.UpdatableFragment;
 import com.bj4.yhh.projectx.lot.Utils;
+import com.bj4.yhh.projectx.lot.blot.BLotAddOrMinusFragment;
+import com.bj4.yhh.projectx.lot.blot.BLotCombinationFragment;
+import com.bj4.yhh.projectx.lot.blot.BLotLastFragment;
+import com.bj4.yhh.projectx.lot.blot.BLotOrderedFragment;
 import com.bj4.yhh.projectx.lot.dialogs.AddNewDataDialog;
 import com.bj4.yhh.projectx.lot.dialogs.DisplayLinesDialog;
 import com.bj4.yhh.projectx.lot.hk6.HK6AddOrMinusFragment;
@@ -107,6 +111,7 @@ public class MainActivity extends Activity implements
     private void updateAllListData() {
         updateListData(LotteryData.TYPE_HK6);
         updateListData(LotteryData.TYPE_539);
+        updateListData(LotteryData.TYPE_BLOT);
         // updateListData(LotteryData.TYPE_WELI);
     }
 
@@ -132,6 +137,9 @@ public class MainActivity extends Activity implements
                 break;
             case LotteryData.TYPE_WELI:
                 title = getString(R.string.weli);
+                break;
+            case LotteryData.TYPE_BLOT:
+                title = getString(R.string.blot);
                 break;
         }
         Toast.makeText(this, title + " " + getString(R.string.update_done), Toast.LENGTH_LONG)
@@ -238,6 +246,30 @@ public class MainActivity extends Activity implements
                     fragments.put(fragmentType, rtn);
                 }
                 break;
+            case LotteryData.TYPE_BLOT:
+                fragments = mFragments.get(gameType);
+                if (fragments == null) {
+                    fragments = new HashMap<Integer, Fragment>();
+                }
+                rtn = fragments.get(fragmentType);
+                if (rtn == null) {
+                    switch (fragmentType) {
+                        case FRAGMENT_TYPE_ORDERED:
+                            rtn = BLotOrderedFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_COMBINATION:
+                            rtn = BLotCombinationFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_LAST:
+                            rtn = BLotLastFragment.getNewInstance();
+                            break;
+                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                            rtn = BLotAddOrMinusFragment.getNewInstance();
+                            break;
+                    }
+                    fragments.put(fragmentType, rtn);
+                }
+                break;
             default:
                 break;
         }
@@ -279,12 +311,18 @@ public class MainActivity extends Activity implements
             mTitle = getString(R.string.lt539);
             restoreActionBar();
             return true;
-            // } else if (id == R.id.weli) {
-            // mCurrentGameType = LotteryData.TYPE_WELI;
-            // onNavigationDrawerItemSelected(mCurrentFragmentType);
-            // mTitle = getString(R.string.weli);
-            // restoreActionBar();
-            // return true;
+        } else if (id == R.id.weli) {
+            mCurrentGameType = LotteryData.TYPE_WELI;
+            onNavigationDrawerItemSelected(mCurrentFragmentType);
+            mTitle = getString(R.string.weli);
+            restoreActionBar();
+            return true;
+        } else if (id == R.id.blot) {
+            mCurrentGameType = LotteryData.TYPE_BLOT;
+            onNavigationDrawerItemSelected(mCurrentFragmentType);
+            mTitle = getString(R.string.blot);
+            restoreActionBar();
+            return true;
         } else if (id == R.id.update_all) {
             Utils.startUpdateAllService(this);
         } else if (id == R.id.update_last) {

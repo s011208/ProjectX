@@ -13,34 +13,41 @@
         android:showAsAction="withText|ifRoom"
         android:title="@string/lt539"/>
     <item
-        android:id="@+id/update_all"
+        android:id="@+id/weli"
         android:orderInCategory="100"
+        android:showAsAction="withText|ifRoom"
+        android:title="@string/weli"
+        android:visible="false"/>
+    <item
+        android:id="@+id/blot"
+        android:orderInCategory="100"
+        android:showAsAction="withText|ifRoom"
+        android:title="@string/blot"/>
+    <item
+        android:id="@+id/update_all"
+        android:orderInCategory="101"
         android:showAsAction="never"
         android:title="@string/update_all"/>
     <item
         android:id="@+id/update_last"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:showAsAction="never"
         android:title="@string/update_recent"/>
     <item
         android:id="@+id/add_new_data"
-        android:orderInCategory="100"
+        android:orderInCategory="102"
         android:showAsAction="never"
-        android:title="@string/add_new_data"/>
+        android:title="@string/add_new_data"
+        android:visible="false"/>
     <item
         android:id="@+id/display_lines"
-        android:orderInCategory="100"
+        android:orderInCategory="103"
         android:showAsAction="never"
         android:title="@string/display_lines"/>
     <item
         android:id="@+id/settings"
-        android:orderInCategory="100"
+        android:orderInCategory="103"
         android:showAsAction="never"
         android:title="@string/settings"/>
-    <!-- <item -->
-    <!-- android:id="@+id/weli" -->
-    <!-- android:orderInCategory="100" -->
-    <!-- android:showAsAction="withText|ifRoom" -->
-    <!-- android:title="@string/weli"/> -->
 
 </menu>
