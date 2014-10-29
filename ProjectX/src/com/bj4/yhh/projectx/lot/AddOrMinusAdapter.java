@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.text.TextUtils.TruncateAt;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,7 +109,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
             container = (LinearLayout)convertView;
             holder = new ViewHolder();
             holder.mDate = new TextView(mContext);
-            holder.mDate.setTextSize(mTableTextSize);
+            holder.mDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTableTextSize);
             holder.mDate.setEllipsize(TruncateAt.END);
             holder.mDate.setGravity(Gravity.CENTER);
             LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mTableDateWidth,
@@ -118,7 +119,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 TextView txt = new TextView(mContext);
                 txt.setSingleLine();
                 txt.setGravity(Gravity.CENTER);
-                txt.setTextSize(mTableTextSize);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTableTextSize);
                 LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(mTableNumberWidth,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 container.addView(txt, tl);

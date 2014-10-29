@@ -107,12 +107,15 @@ public class Utils {
     }
 
     public static Notification getNotification(Context context, int currentProgress,
-            int targetProgress, String title, String subject) {
+            int targetProgress, String title, boolean isDone) {
+        final int progress = (int)(((float)(targetProgress - currentProgress) / targetProgress) * 100);
         Notification rtn = new Notification.Builder(context)
                 .setContentTitle(title)
-                .setProgress(100,
-                        (int)(((float)(targetProgress - currentProgress) / targetProgress) * 100),
-                        false).setContentText(subject).setSmallIcon(R.drawable.ic_launcher)
+                .setProgress(100, progress, false)
+                .setContentText(
+                        isDone ? context.getString(R.string.update_done) : (context
+                                .getString(R.string.update_progress) + "  " + progress + " %"))
+                .setSmallIcon(isDone ? R.drawable.download_done : R.drawable.downloading)
                 .setAutoCancel(true).build();
         return rtn;
     }

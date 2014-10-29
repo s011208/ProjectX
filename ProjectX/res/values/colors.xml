@@ -1,3 +1,5 @@
 <resources>
 
+    <drawable name="transparent">#00000000</drawable>
+	<drawable name="light_blue">#3399ffff</drawable>
 </resources>

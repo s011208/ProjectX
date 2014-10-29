@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils.TruncateAt;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,7 +133,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         }
 
         TextView date = new TextView(context);
-        date.setTextSize(tableTextSize);
+        date.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
         date.setEllipsize(TruncateAt.END);
         date.setGravity(Gravity.CENTER);
         date.setBackgroundResource(R.drawable.header_column_bg);
@@ -144,7 +145,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
             TextView txt = new TextView(context);
             txt.setSingleLine();
             txt.setGravity(Gravity.CENTER);
-            txt.setTextSize(tableTextSize);
+            txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
             txt.setBackgroundResource(R.drawable.header_column_bg);
             LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(tableNumberWidth,
                     LinearLayout.LayoutParams.MATCH_PARENT);
@@ -178,7 +179,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         }
 
         TextView date = new TextView(context);
-        date.setTextSize(tableTextSize);
+        date.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
         date.setEllipsize(TruncateAt.END);
         date.setGravity(Gravity.CENTER);
         date.setBackgroundResource(R.drawable.header_column_bg);
@@ -190,7 +191,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
             TextView txt = new TextView(context);
             txt.setSingleLine();
             txt.setGravity(Gravity.CENTER);
-            txt.setTextSize(tableTextSize);
+            txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
             txt.setBackgroundResource(R.drawable.header_column_bg);
             LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(tableNumberWidth,
                     LinearLayout.LayoutParams.MATCH_PARENT);

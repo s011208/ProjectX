@@ -42,10 +42,10 @@ public abstract class ParseService extends Service implements ParseTask.ParseTas
         --mUpdatedProgress;
         if (mUpdatedProgress > 0) {
             n = Utils.getNotification(this, mUpdatedProgress, getAllPageSize(),
-                    getUpdateStatusString(this), getString(R.string.update_progress));
+                    getUpdateStatusString(this), false);
         } else {
             n = Utils.getNotification(this, mUpdatedProgress, getAllPageSize(),
-                    getUpdateStatusString(this), getString(R.string.update_done));
+                    getUpdateStatusString(this), true);
             finishAllTasks();
         }
         notificationManager.notify(hashCode(), n);

@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.text.TextUtils.TruncateAt;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,7 +134,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             container = (LinearLayout)convertView;
             holder = new ViewHolder();
             holder.mDate = new TextView(mContext);
-            holder.mDate.setTextSize(mTableTextSize);
+            holder.mDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTableTextSize);
             holder.mDate.setEllipsize(TruncateAt.END);
             holder.mDate.setGravity(Gravity.CENTER);
             LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mTableDateWidth,
@@ -143,7 +144,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
                 TextView txt = new TextView(mContext);
                 txt.setSingleLine();
                 txt.setGravity(Gravity.CENTER);
-                txt.setTextSize(mTableTextSize);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTableTextSize);
                 LinearLayout.LayoutParams tl = new LinearLayout.LayoutParams(mTableNumberWidth,
                         LinearLayout.LayoutParams.MATCH_PARENT);
                 container.addView(txt, tl);
@@ -162,7 +163,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             if (data.mIsSubTotal) {
                 if (mSeperatedPositionList.contains(i)) {
                     holder.mText.get(i - 1).setBackgroundResource(
-                            R.drawable.red_column_bg_with_extra_right);
+                            R.drawable.red_column_bg);
                 } else {
                     holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
                 }
