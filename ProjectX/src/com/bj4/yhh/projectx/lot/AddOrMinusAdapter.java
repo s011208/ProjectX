@@ -36,7 +36,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private LayoutInflater mInflater;
 
-    private final float mTableTextSize;
+    private final int mTableTextSize;
 
     private final int mTableDateWidth;
 
@@ -48,6 +48,8 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private int mGridColorResource = 0;
 
+    private final ArrayList<Integer> mSubTotal = new ArrayList<Integer>();
+
     public AddOrMinusAdapter(Context context, final int gameType) {
         GAME_TYPE = gameType;
         TOTAL_NUMBER_COUNT = LotteryData.getTotalNumber(GAME_TYPE);
@@ -55,7 +57,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources r = context.getResources();
-        mTableTextSize = r.getDimension(R.dimen.add_or_minus_table_text_size);
+        mTableTextSize = r.getInteger(R.integer.add_or_minus_table_text_size);
         mTableDateWidth = (int)r.getDimension(R.dimen.add_or_minus_table_date_width);
         mTableNumberWidth = (int)r.getDimension(R.dimen.add_or_minus_table_number_width);
         initData();

@@ -30,8 +30,8 @@ public class Utils {
 
     public static final ArrayList<Integer> getOrderedListSeperatedPosition(final int totalNumber) {
         final ArrayList<Integer> rtn = new ArrayList<Integer>();
-        for (int i = 0; i < totalNumber % 10; i++) {
-            rtn.add(i * 10);
+        for (int i = 1; i <= Math.ceil(totalNumber / 5f); i++) {
+            rtn.add(i * 5);
         }
         return rtn;
     }

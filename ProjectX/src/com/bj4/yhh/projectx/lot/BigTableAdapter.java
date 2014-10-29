@@ -40,7 +40,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     private LayoutInflater mInflater;
 
-    private final float mTableTextSize;
+    private final int mTableTextSize;
 
     private final int mTableDateWidth;
 
@@ -68,7 +68,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources r = context.getResources();
-        mTableTextSize = r.getDimension(R.dimen.table_text_size);
+        mTableTextSize = r.getInteger(R.integer.table_text_size);
         mTableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
         mTableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
         initOrderedList();

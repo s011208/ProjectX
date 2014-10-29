@@ -115,7 +115,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
         Resources r = context.getResources();
-        float tableTextSize = r.getDimension(R.dimen.table_text_size) * 0.75f;
+        int tableTextSize = (int)(r.getInteger(R.integer.table_text_size) * 0.75f);
         int tableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
         int tableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
         ArrayList<Integer> headerData = null;
@@ -161,7 +161,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
         }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
         Resources r = context.getResources();
-        float tableTextSize = r.getDimension(R.dimen.table_text_size);
+        int tableTextSize = r.getInteger(R.integer.table_text_size);
         int tableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
         int tableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
         ArrayList<Integer> headerData = null;
