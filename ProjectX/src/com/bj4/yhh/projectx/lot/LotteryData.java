@@ -8,17 +8,30 @@ import android.util.Log;
 import android.util.SparseArray;
 
 public class LotteryData {
+    public static class LotteryNumber {
+        public int mNumber = NOT_USED;
+
+        public boolean mIsHit = false;
+
+        public LotteryNumber() {
+        }
+
+        public LotteryNumber(int number) {
+            mNumber = number;
+        }
+    }
+
     public static final int TYPE_HK6 = 0;
 
     public static final int TYPE_539 = 1;
 
     public static final int TYPE_WELI = 2;
-    
+
     public static final int TYPE_BLOT = 3;
 
     public static final int NOT_USED = -1;
 
-    public int m1, m2, m3, m4, m5, m6, m7;
+    public LotteryNumber m1, m2, m3, m4, m5, m6, m7;
 
     public long mNumber;
 
@@ -76,7 +89,8 @@ public class LotteryData {
                     if (previousMonth.equals(currentMonth)) {
                         tempList.add(current);
                     } else {
-                        LotteryData subTotalData = getNewSubTotalLotteryData(tempList, previousMonth);
+                        LotteryData subTotalData = getNewSubTotalLotteryData(tempList,
+                                previousMonth);
                         tempList.clear();
                         data.add(i, subTotalData);
                         i++;
@@ -94,31 +108,33 @@ public class LotteryData {
         }
     }
 
-    private static LotteryData getNewSubTotalLotteryData(ArrayList<LotteryData> tempList, String title) {
-        LotteryData subTotalData = new LotteryData(NOT_USED, NOT_USED, NOT_USED, NOT_USED,
-                NOT_USED, NOT_USED, NOT_USED, title + "月小計", NOT_USED);
+    private static LotteryData getNewSubTotalLotteryData(ArrayList<LotteryData> tempList,
+            String title) {
+        LotteryData subTotalData = new LotteryData(new LotteryNumber(), new LotteryNumber(),
+                new LotteryNumber(), new LotteryNumber(), new LotteryNumber(), new LotteryNumber(),
+                new LotteryNumber(), title + "月小計", NOT_USED);
         subTotalData.mIsSubTotal = true;
         SparseArray<Integer> subTotal = new SparseArray<Integer>();
         for (LotteryData tempData : tempList) {
-            int key = tempData.m1;
+            int key = tempData.m1.mNumber;
             int value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
-            key = tempData.m2;
+            key = tempData.m2.mNumber;
             value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
-            key = tempData.m3;
+            key = tempData.m3.mNumber;
             value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
-            key = tempData.m4;
+            key = tempData.m4.mNumber;
             value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
-            key = tempData.m5;
+            key = tempData.m5.mNumber;
             value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
-            key = tempData.m6;
+            key = tempData.m6.mNumber;
             value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
-            key = tempData.m7;
+            key = tempData.m7.mNumber;
             value = subTotal.get(key, 0);
             subTotal.put(key, value + 1);
         }
@@ -126,8 +142,8 @@ public class LotteryData {
         return subTotalData;
     }
 
-    public LotteryData(int m1, int m2, int m3, int m4, int m5, int m6, int m7, String date,
-            long number) {
+    public LotteryData(LotteryNumber m1, LotteryNumber m2, LotteryNumber m3, LotteryNumber m4,
+            LotteryNumber m5, LotteryNumber m6, LotteryNumber m7, String date, long number) {
         this.m1 = m1;
         this.m2 = m2;
         this.m3 = m3;

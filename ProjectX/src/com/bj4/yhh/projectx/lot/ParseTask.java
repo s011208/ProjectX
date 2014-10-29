@@ -64,7 +64,13 @@ public class ParseTask extends AsyncTask<Void, Void, Void> {
                         int m5 = Integer.parseInt(raw[4].trim());
                         int m6 = Integer.parseInt(raw[5].trim());
                         int m7 = Integer.parseInt(tdEles.get(3).text().trim());
-                        mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
+                        mData.add(new LotteryData(new LotteryData.LotteryNumber(m1),
+                                new LotteryData.LotteryNumber(m2),
+                                new LotteryData.LotteryNumber(m3),
+                                new LotteryData.LotteryNumber(m4),
+                                new LotteryData.LotteryNumber(m5),
+                                new LotteryData.LotteryNumber(m6),
+                                new LotteryData.LotteryNumber(m7), date, number));
                     } else if (mGameType == LotteryData.TYPE_539) {
                         long number = Long.valueOf(tdEles.get(0).text());
                         String date = tdEles.get(1).text();
@@ -77,7 +83,13 @@ public class ParseTask extends AsyncTask<Void, Void, Void> {
                         int m5 = Integer.parseInt(raw[4].trim());
                         int m6 = LotteryData.NOT_USED;
                         int m7 = LotteryData.NOT_USED;
-                        mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
+                        mData.add(new LotteryData(new LotteryData.LotteryNumber(m1),
+                                new LotteryData.LotteryNumber(m2),
+                                new LotteryData.LotteryNumber(m3),
+                                new LotteryData.LotteryNumber(m4),
+                                new LotteryData.LotteryNumber(m5),
+                                new LotteryData.LotteryNumber(m6),
+                                new LotteryData.LotteryNumber(m7), date, number));
                     } else if (mGameType == LotteryData.TYPE_WELI) {
                         long number = Long.valueOf(tdEles.get(0).text());
                         String date = tdEles.get(1).text();
@@ -90,7 +102,13 @@ public class ParseTask extends AsyncTask<Void, Void, Void> {
                         int m5 = Integer.parseInt(raw[4].trim());
                         int m6 = Integer.parseInt(raw[5].trim());
                         int m7 = Integer.parseInt(tdEles.get(3).text().trim());
-                        mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
+                        mData.add(new LotteryData(new LotteryData.LotteryNumber(m1),
+                                new LotteryData.LotteryNumber(m2),
+                                new LotteryData.LotteryNumber(m3),
+                                new LotteryData.LotteryNumber(m4),
+                                new LotteryData.LotteryNumber(m5),
+                                new LotteryData.LotteryNumber(m6),
+                                new LotteryData.LotteryNumber(m7), date, number));
                     } else if (mGameType == LotteryData.TYPE_BLOT) {
                         long number = Long.valueOf(tdEles.get(0).text());
                         String date = tdEles.get(1).text();
@@ -103,7 +121,13 @@ public class ParseTask extends AsyncTask<Void, Void, Void> {
                         int m5 = Integer.parseInt(raw[4].trim());
                         int m6 = Integer.parseInt(raw[5].trim());
                         int m7 = Integer.parseInt(tdEles.get(3).text().trim());
-                        mData.add(new LotteryData(m1, m2, m3, m4, m5, m6, m7, date, number));
+                        mData.add(new LotteryData(new LotteryData.LotteryNumber(m1),
+                                new LotteryData.LotteryNumber(m2),
+                                new LotteryData.LotteryNumber(m3),
+                                new LotteryData.LotteryNumber(m4),
+                                new LotteryData.LotteryNumber(m5),
+                                new LotteryData.LotteryNumber(m6),
+                                new LotteryData.LotteryNumber(m7), date, number));
                     }
                 } catch (Exception e) {
                     if (DEBUG)

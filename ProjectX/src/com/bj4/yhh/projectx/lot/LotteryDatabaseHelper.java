@@ -25,7 +25,7 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_LT539 = "lt539";
 
     private static final String TABLE_WELI = "weli";
-    
+
     private static final String TABLE_BLOT = "blot";
 
     private static final String COLUMN_M1 = "m1";
@@ -120,10 +120,15 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
                     final int m6Index = data.getColumnIndex(COLUMN_M6);
                     final int m7Index = data.getColumnIndex(COLUMN_M7);
                     while (data.moveToNext()) {
-                        rtn.add(new LotteryData(data.getInt(m1Index), data.getInt(m2Index), data
-                                .getInt(m3Index), data.getInt(m4Index), data.getInt(m5Index), data
-                                .getInt(m6Index), data.getInt(m7Index), data.getString(dateIndex),
-                                data.getLong(numberIndex)));
+                        rtn.add(new LotteryData(
+                                new LotteryData.LotteryNumber(data.getInt(m1Index)),
+                                new LotteryData.LotteryNumber(data.getInt(m2Index)),
+                                new LotteryData.LotteryNumber(data.getInt(m3Index)),
+                                new LotteryData.LotteryNumber(data.getInt(m4Index)),
+                                new LotteryData.LotteryNumber(data.getInt(m5Index)),
+                                new LotteryData.LotteryNumber(data.getInt(m6Index)),
+                                new LotteryData.LotteryNumber(data.getInt(m7Index)), data
+                                        .getString(dateIndex), data.getLong(numberIndex)));
                     }
                 } finally {
                     data.close();
@@ -176,13 +181,13 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_NUMBER, data.mNumber);
         cv.put(COLUMN_DATE, data.mDate);
-        cv.put(COLUMN_M1, data.m1);
-        cv.put(COLUMN_M2, data.m2);
-        cv.put(COLUMN_M3, data.m3);
-        cv.put(COLUMN_M4, data.m4);
-        cv.put(COLUMN_M5, data.m5);
-        cv.put(COLUMN_M6, data.m6);
-        cv.put(COLUMN_M7, data.m7);
+        cv.put(COLUMN_M1, data.m1.mNumber);
+        cv.put(COLUMN_M2, data.m2.mNumber);
+        cv.put(COLUMN_M3, data.m3.mNumber);
+        cv.put(COLUMN_M4, data.m4.mNumber);
+        cv.put(COLUMN_M5, data.m5.mNumber);
+        cv.put(COLUMN_M6, data.m6.mNumber);
+        cv.put(COLUMN_M7, data.m7.mNumber);
         return cv;
     }
 

@@ -130,48 +130,40 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
             container = (LinearLayout)convertView;
         }
         final LotteryData data = getItem(position);
-        LotteryData comparedData = null;
-        try {
-            comparedData = getItem(position + 1);
-            if (comparedData != null && comparedData.mIsSubTotal) {
-                comparedData = getItem(position + 2);
-            }
-        } catch (Exception e) {
-            comparedData = null;
-        }
         holder.mDate.setBackgroundResource(mGridColorResource);
         holder.mDate.setText(data.mDate);
+        final boolean isSubTotal = data.mIsSubTotal;
         if (container.getChildCount() > 1) {
-            refreshTextView(holder.mText.get(0), data.m1, comparedData);
+            refreshTextView(holder.mText.get(0), data.m1, isSubTotal);
         }
         if (container.getChildCount() > 2) {
-            refreshTextView(holder.mText.get(1), data.m2, comparedData);
+            refreshTextView(holder.mText.get(1), data.m2, isSubTotal);
         }
         if (container.getChildCount() > 3) {
-            refreshTextView(holder.mText.get(2), data.m3, comparedData);
+            refreshTextView(holder.mText.get(2), data.m3, isSubTotal);
         }
         if (container.getChildCount() > 4) {
-            refreshTextView(holder.mText.get(3), data.m4, comparedData);
+            refreshTextView(holder.mText.get(3), data.m4, isSubTotal);
         }
         if (container.getChildCount() > 5) {
-            refreshTextView(holder.mText.get(4), data.m5, comparedData);
+            refreshTextView(holder.mText.get(4), data.m5, isSubTotal);
         }
         if (container.getChildCount() > 6) {
-            refreshTextView(holder.mText.get(5), data.m6, comparedData);
+            refreshTextView(holder.mText.get(5), data.m6, isSubTotal);
         }
         if (container.getChildCount() > 7) {
-            refreshTextView(holder.mText.get(6), data.m7, comparedData);
+            refreshTextView(holder.mText.get(6), data.m7, isSubTotal);
         }
         return convertView;
     }
 
-    private void refreshTextView(TextView txt, int dataValue, LotteryData comparedData) {
-        if (dataValue != LotteryData.NOT_USED) {
-            txt.setText(String.valueOf(Utils.NUMBER_FORMATTER.format(dataValue)));
+    private void refreshTextView(TextView txt, LotteryData.LotteryNumber dataValue,
+            boolean isSubTotal) {
+        if (dataValue.mNumber != LotteryData.NOT_USED) {
+            txt.setText(String.valueOf(Utils.NUMBER_FORMATTER.format(dataValue.mNumber)));
             if (DEBUG)
-                Log.v(TAG, "refreshTextView dataValue: " + dataValue);
-            boolean isHit = isHit(dataValue, comparedData);
-            if (isHit) {
+                Log.v(TAG, "refreshTextView dataValue: " + dataValue.mNumber);
+            if (dataValue.mIsHit) {
                 txt.setTextColor(Color.RED);
             } else {
                 txt.setTextColor(Color.BLACK);
@@ -180,46 +172,50 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
             txt.setTextColor(Color.BLACK);
             txt.setText(null);
         }
-        txt.setBackgroundResource(mGridColorResource);
+        if (isSubTotal) {
+            txt.setBackgroundResource(R.drawable.red_column_bg);
+        } else {
+            txt.setBackgroundResource(mGridColorResource);
+        }
     }
 
-    private int getComparedValue(int comparedValue) {
-        final int rtn = ((comparedValue - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1;
+    private int getComparedValue(LotteryData.LotteryNumber comparedValue) {
+        final int rtn = ((comparedValue.mNumber - 1 + mComparedValue + TOTAL_NUMBER_COUNT) % TOTAL_NUMBER_COUNT) + 1;
         if (DEBUG)
             Log.i(TAG, "getComparedValue rtn: " + rtn);
         return rtn;
     }
 
-    private boolean isHit(int dataValue, LotteryData comparedData) {
+    private boolean isHit(LotteryData.LotteryNumber dataValue, LotteryData comparedData) {
         if (comparedData == null) {
             return false;
         }
-        if (comparedData.m1 != LotteryData.NOT_USED
-                && comparedData.m1 == getComparedValue(dataValue)) {
+        if (comparedData.m1.mNumber != LotteryData.NOT_USED
+                && comparedData.m1.mNumber == getComparedValue(dataValue)) {
             return true;
         }
-        if (comparedData.m2 != LotteryData.NOT_USED
-                && comparedData.m2 == getComparedValue(dataValue)) {
+        if (comparedData.m2.mNumber != LotteryData.NOT_USED
+                && comparedData.m2.mNumber == getComparedValue(dataValue)) {
             return true;
         }
-        if (comparedData.m3 != LotteryData.NOT_USED
-                && comparedData.m3 == getComparedValue(dataValue)) {
+        if (comparedData.m3.mNumber != LotteryData.NOT_USED
+                && comparedData.m3.mNumber == getComparedValue(dataValue)) {
             return true;
         }
-        if (comparedData.m4 != LotteryData.NOT_USED
-                && comparedData.m4 == getComparedValue(dataValue)) {
+        if (comparedData.m4.mNumber != LotteryData.NOT_USED
+                && comparedData.m4.mNumber == getComparedValue(dataValue)) {
             return true;
         }
-        if (comparedData.m5 != LotteryData.NOT_USED
-                && comparedData.m5 == getComparedValue(dataValue)) {
+        if (comparedData.m5.mNumber != LotteryData.NOT_USED
+                && comparedData.m5.mNumber == getComparedValue(dataValue)) {
             return true;
         }
-        if (comparedData.m6 != LotteryData.NOT_USED
-                && comparedData.m6 == getComparedValue(dataValue)) {
+        if (comparedData.m6.mNumber != LotteryData.NOT_USED
+                && comparedData.m6.mNumber == getComparedValue(dataValue)) {
             return true;
         }
-        if (comparedData.m7 != LotteryData.NOT_USED
-                && comparedData.m7 == getComparedValue(dataValue)) {
+        if (comparedData.m7.mNumber != LotteryData.NOT_USED
+                && comparedData.m7.mNumber == getComparedValue(dataValue)) {
             return true;
         }
         return false;
@@ -235,6 +231,59 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
     public void done(ArrayList<LotteryData> data) {
         mData.clear();
         mData.addAll(data);
+        int m1, m2, m3, m4, m5, m6, m7;
+        m1 = m2 = m3 = m4 = m5 = m6 = m7 = 0;
+        for (int position = 0; position < mData.size(); position++) {
+            final LotteryData currentData = mData.get(position);
+            if (currentData.mIsSubTotal) {
+                currentData.m1.mNumber = m1;
+                currentData.m2.mNumber = m2;
+                currentData.m3.mNumber = m3;
+                currentData.m4.mNumber = m4;
+                currentData.m5.mNumber = m5;
+                currentData.m6.mNumber = m6;
+                currentData.m7.mNumber = m7;
+                m1 = m2 = m3 = m4 = m5 = m6 = m7 = 0;
+            } else {
+                LotteryData comparedData = null;
+                try {
+                    comparedData = mData.get(position + 1);
+                    if (comparedData != null && comparedData.mIsSubTotal) {
+                        comparedData = getItem(position + 2);
+                    }
+                    currentData.m1.mIsHit = isHit(currentData.m1, comparedData);
+                    currentData.m2.mIsHit = isHit(currentData.m2, comparedData);
+                    currentData.m3.mIsHit = isHit(currentData.m3, comparedData);
+                    currentData.m4.mIsHit = isHit(currentData.m4, comparedData);
+                    currentData.m5.mIsHit = isHit(currentData.m5, comparedData);
+                    currentData.m6.mIsHit = isHit(currentData.m6, comparedData);
+                    currentData.m7.mIsHit = isHit(currentData.m7, comparedData);
+                    if (currentData.m1.mIsHit) {
+                        ++m1;
+                    }
+                    if (currentData.m2.mIsHit) {
+                        ++m2;
+                    }
+                    if (currentData.m3.mIsHit) {
+                        ++m3;
+                    }
+                    if (currentData.m4.mIsHit) {
+                        ++m4;
+                    }
+                    if (currentData.m5.mIsHit) {
+                        ++m5;
+                    }
+                    if (currentData.m6.mIsHit) {
+                        ++m6;
+                    }
+                    if (currentData.m7.mIsHit) {
+                        ++m7;
+                    }
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
         super.notifyDataSetChanged();
     }
 

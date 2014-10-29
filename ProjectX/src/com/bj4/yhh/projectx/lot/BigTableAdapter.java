@@ -3,8 +3,6 @@ package com.bj4.yhh.projectx.lot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
@@ -172,37 +170,40 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             } else {
                 boolean show = false;
                 if (AWARDS_NUMBER_COUNT >= 7) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber || data.m5 == indexNumber
-                            || data.m6 == indexNumber || data.m7 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber || data.m2.mNumber == indexNumber
+                            || data.m3.mNumber == indexNumber || data.m4.mNumber == indexNumber
+                            || data.m5.mNumber == indexNumber || data.m6.mNumber == indexNumber
+                            || data.m7.mNumber == indexNumber) {
                         show = true;
                     }
                 } else if (AWARDS_NUMBER_COUNT >= 6) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber || data.m5 == indexNumber
-                            || data.m6 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber || data.m2.mNumber == indexNumber
+                            || data.m3.mNumber == indexNumber || data.m4.mNumber == indexNumber
+                            || data.m5.mNumber == indexNumber || data.m6.mNumber == indexNumber) {
                         show = true;
                     }
                 } else if (AWARDS_NUMBER_COUNT >= 5) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber || data.m5 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber || data.m2.mNumber == indexNumber
+                            || data.m3.mNumber == indexNumber || data.m4.mNumber == indexNumber
+                            || data.m5.mNumber == indexNumber) {
                         show = true;
                     }
                 } else if (AWARDS_NUMBER_COUNT >= 4) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber
-                            || data.m4 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber || data.m2.mNumber == indexNumber
+                            || data.m3.mNumber == indexNumber || data.m4.mNumber == indexNumber) {
                         show = true;
                     }
                 } else if (AWARDS_NUMBER_COUNT >= 3) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber || data.m3 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber || data.m2.mNumber == indexNumber
+                            || data.m3.mNumber == indexNumber) {
                         show = true;
                     }
                 } else if (AWARDS_NUMBER_COUNT >= 2) {
-                    if (data.m1 == indexNumber || data.m2 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber || data.m2.mNumber == indexNumber) {
                         show = true;
                     }
                 } else if (AWARDS_NUMBER_COUNT >= 1) {
-                    if (data.m1 == indexNumber) {
+                    if (data.m1.mNumber == indexNumber) {
                         show = true;
                     }
                 }
@@ -259,13 +260,13 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         protected Void doInBackground(Void... arg0) {
             if (mData != null) {
                 for (LotteryData data : mData) {
-                    mRtn.put(data.m1, mRtn.get(data.m1) + 1);
-                    mRtn.put(data.m2, mRtn.get(data.m2) + 1);
-                    mRtn.put(data.m3, mRtn.get(data.m3) + 1);
-                    mRtn.put(data.m4, mRtn.get(data.m4) + 1);
-                    mRtn.put(data.m5, mRtn.get(data.m5) + 1);
-                    mRtn.put(data.m6, mRtn.get(data.m6) + 1);
-                    mRtn.put(data.m7, mRtn.get(data.m7) + 1);
+                    mRtn.put(data.m1.mNumber, mRtn.get(data.m1.mNumber) + 1);
+                    mRtn.put(data.m2.mNumber, mRtn.get(data.m2.mNumber) + 1);
+                    mRtn.put(data.m3.mNumber, mRtn.get(data.m3.mNumber) + 1);
+                    mRtn.put(data.m4.mNumber, mRtn.get(data.m4.mNumber) + 1);
+                    mRtn.put(data.m5.mNumber, mRtn.get(data.m5.mNumber) + 1);
+                    mRtn.put(data.m6.mNumber, mRtn.get(data.m6.mNumber) + 1);
+                    mRtn.put(data.m7.mNumber, mRtn.get(data.m7.mNumber) + 1);
                 }
             }
             return null;
