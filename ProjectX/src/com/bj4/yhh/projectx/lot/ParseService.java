@@ -1,7 +1,6 @@
 
 package com.bj4.yhh.projectx.lot;
 
-import com.bj4.yhh.projectx.R;
 import com.bj4.yhh.projectx.lot.Utils;
 
 import android.app.Notification;
@@ -10,8 +9,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 public abstract class ParseService extends Service implements ParseTask.ParseTaskCallback {
 

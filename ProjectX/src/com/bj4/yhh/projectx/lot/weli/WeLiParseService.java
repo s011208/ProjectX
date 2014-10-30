@@ -8,10 +8,6 @@ import com.bj4.yhh.projectx.lot.ParseService;
 import android.content.Context;
 
 public class WeLiParseService extends ParseService {
-    private static final boolean DEBUG = true;
-
-    private static final String TAG = "WeLiParseService";
-
     private static final int ALL_PAGE_SIZE = 30;
 
     @Override

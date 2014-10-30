@@ -15,7 +15,6 @@ import com.bj4.yhh.projectx.lot.lt539.LT539ParseService;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class Utils {
 

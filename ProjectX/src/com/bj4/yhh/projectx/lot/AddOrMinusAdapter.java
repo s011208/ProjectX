@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callback {
 
-    private static final String TAG = "QQQQ";
+    private static final String TAG = "AddOrMinusAdapter";
 
     private static final boolean DEBUG = false;
 
@@ -49,8 +49,6 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private int mGridColorResource = 0;
 
-    private final ArrayList<Integer> mSubTotal = new ArrayList<Integer>();
-
     public AddOrMinusAdapter(Context context, final int gameType) {
         GAME_TYPE = gameType;
         TOTAL_NUMBER_COUNT = LotteryData.getTotalNumber(GAME_TYPE);
@@ -66,7 +64,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     public void setComparedValue(int comparedValue) {
         mComparedValue = comparedValue;
-        super.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     private void initData() {

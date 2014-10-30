@@ -4,7 +4,6 @@ package com.bj4.yhh.projectx.lot;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 
 public class LotteryData {
