@@ -4,6 +4,8 @@
     <dimen name="activity_horizontal_margin">3dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
+    <!-- action bar -->
+    <dimen name="action_bar_item_text_size">20sp</dimen>
     <!-- big table -->
     <dimen name="table_date_width">110dp</dimen>
     <dimen name="table_number_width">30dp</dimen>

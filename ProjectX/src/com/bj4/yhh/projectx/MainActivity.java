@@ -77,6 +77,16 @@ public class MainActivity extends Activity implements
         registerReceiver();
     }
 
+    public void onStart() {
+        super.onStart();
+        GATracker.startActivity(this);
+    }
+
+    public void onStop() {
+        GATracker.stopActivity(this);
+        super.onStop();
+    }
+
     public void onResume() {
         super.onResume();
         SharedPreferenceManager manager = SharedPreferenceManager
@@ -300,12 +310,16 @@ public class MainActivity extends Activity implements
             onNavigationDrawerItemSelected(mCurrentFragmentType);
             mTitle = getString(R.string.hk6);
             restoreActionBar();
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_TYPE_HK6, null);
             return true;
         } else if (id == R.id.lt539) {
             mCurrentGameType = LotteryData.TYPE_539;
             onNavigationDrawerItemSelected(mCurrentFragmentType);
             mTitle = getString(R.string.lt539);
             restoreActionBar();
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_TYPE_LT539, null);
             return true;
         } else if (id == R.id.weli) {
             mCurrentGameType = LotteryData.TYPE_WELI;
@@ -318,14 +332,22 @@ public class MainActivity extends Activity implements
             onNavigationDrawerItemSelected(mCurrentFragmentType);
             mTitle = getString(R.string.blot);
             restoreActionBar();
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_TYPE_BLOT, null);
             return true;
         } else if (id == R.id.update_all) {
             Utils.startUpdateAllService(this);
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_UPDATE_ALL, null);
         } else if (id == R.id.update_last) {
             Utils.startUpdateRecently(this);
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_UPDATE_RECENT, null);
         } else if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_SETTIGNS, null);
         } else if (id == R.id.add_new_data) {
             AddNewDataDialog dialog = AddNewDataDialog.newInstance(new AddNewDataDialog.Callback() {
                 @Override
@@ -342,6 +364,8 @@ public class MainActivity extends Activity implements
                         }
                     });
             dialog.show(getFragmentManager(), "DisplayLinesDialog");
+            GATracker.sendEvent(getApplicationContext(), GATracker.CATEGORY_MENU,
+                    GATracker.ACTION_DISPLAY_LINES, null);
         }
         return super.onOptionsItemSelected(item);
     }
