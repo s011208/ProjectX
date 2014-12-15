@@ -66,12 +66,35 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         mCallback = cb;
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Resources r = context.getResources();
-        mTableTextSize = r.getInteger(R.integer.table_text_size);
-        mTableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
-        mTableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
+        mTableTextSize = getTableTextSize(context, TOTAL_NUMBER_COUNT);
+        mTableDateWidth = getTableDateWidth(context, TOTAL_NUMBER_COUNT);
+        mTableNumberWidth = getTableNumberWidth(context, TOTAL_NUMBER_COUNT);
         initOrderedList();
         initData();
+    }
+
+    public static int getTableTextSize(Context context, final int totalNumber) {
+        if (totalNumber < 40) {
+            return context.getResources().getInteger(R.integer.table_text_size_39);
+        } else {
+            return context.getResources().getInteger(R.integer.table_text_size_49);
+        }
+    }
+    
+    public static int getTableDateWidth(Context context, final int totalNumber) {
+        if (totalNumber < 40) {
+            return (int)context.getResources().getDimension(R.dimen.table_date_width_39);
+        } else {
+            return (int)context.getResources().getDimension(R.dimen.table_date_width_49);
+        }
+    }
+
+    public static int getTableNumberWidth(Context context, final int totalNumber) {
+        if (totalNumber < 40) {
+            return (int)context.getResources().getDimension(R.dimen.table_number_width_39);
+        } else {
+            return (int)context.getResources().getDimension(R.dimen.table_number_width_49);
+        }
     }
 
     private void initOrderedList() {
@@ -162,8 +185,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
             final int indexNumber = mOrderedList.get(i - 1);
             if (data.mIsSubTotal) {
                 if (mSeperatedPositionList.contains(i)) {
-                    holder.mText.get(i - 1).setBackgroundResource(
-                            R.drawable.red_column_bg);
+                    holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
                 } else {
                     holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
                 }

@@ -1,12 +1,16 @@
 <resources>
 
     <!-- big table -->
-    <dimen name="table_date_width">140dp</dimen>
-    <dimen name="table_number_width">35dp</dimen>
+    <dimen name="table_date_width_39">140dp</dimen>
+    <dimen name="table_date_width_49">140dp</dimen>
+    <dimen name="table_number_width_39">35dp</dimen>
+    <dimen name="table_number_width_49">35dp</dimen>
     <dimen name="big_table_fragment_button_width">150dp</dimen>
     <dimen name="big_table_fragment_button_textsize">18sp</dimen>
 
-    <integer name="table_text_size">18</integer>
+    <integer name="table_text_size_39">18</integer>
+    <integer name="table_text_size_49">18</integer>
+
     <!-- add or minus -->
     <dimen name="add_or_minus_table_date_width">200dp</dimen>
     <dimen name="add_or_minus_table_number_width">70dp</dimen>

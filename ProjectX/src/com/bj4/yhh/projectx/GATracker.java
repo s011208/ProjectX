@@ -1,9 +1,11 @@
 
 package com.bj4.yhh.projectx;
 
+import com.google.android.gms.analytics.HitBuilders.AppViewBuilder;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
+
 import android.app.Activity;
 import android.content.Context;
 
@@ -51,7 +53,7 @@ public class GATracker {
 
     public static void sendScreen(Context context, String screen) {
         getTracker(context).setScreenName(screen);
-        getTracker(context).send(new HitBuilders.ScreenViewBuilder().build());
+        getTracker(context).send(new AppViewBuilder().build());
     }
 
     public static void startActivity(Activity activity) {

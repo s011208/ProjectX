@@ -115,10 +115,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
             return;
         }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
-        Resources r = context.getResources();
-        int tableTextSize = (int)(r.getInteger(R.integer.table_text_size) * 0.75f);
-        int tableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
-        int tableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
+        int tableTextSize = (int)(BigTableAdapter.getTableTextSize(context, mTotalNumber) * 0.75f);
+        int tableDateWidth = (int)BigTableAdapter.getTableDateWidth(context, mTotalNumber);
+        int tableNumberWidth = BigTableAdapter.getTableNumberWidth(context, mTotalNumber);
         ArrayList<Integer> headerData = null;
         switch (getFragmentType()) {
             case MainActivity.FRAGMENT_TYPE_LAST:
@@ -161,10 +160,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
             return;
         }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
-        Resources r = context.getResources();
-        int tableTextSize = r.getInteger(R.integer.table_text_size);
-        int tableDateWidth = (int)r.getDimension(R.dimen.table_date_width);
-        int tableNumberWidth = (int)r.getDimension(R.dimen.table_number_width);
+        int tableTextSize = BigTableAdapter.getTableTextSize(context, mTotalNumber);
+        int tableDateWidth = BigTableAdapter.getTableDateWidth(context, mTotalNumber);
+        int tableNumberWidth = BigTableAdapter.getTableNumberWidth(context, mTotalNumber);
         ArrayList<Integer> headerData = null;
         switch (getFragmentType()) {
             case MainActivity.FRAGMENT_TYPE_LAST:
