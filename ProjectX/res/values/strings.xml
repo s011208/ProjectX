@@ -57,4 +57,9 @@
 
     <string name="allow_long_click_delete_title">允許長按刪除</string>
     <string name="allow_long_click_delete_summary">長按資料可以刪除期數內容</string>
+    <string name="settings_cat_appearence">外觀樣式</string>
+    <string name="settings_cat_function">功能設定</string>
+    <string name="settings_cat_reset">其他設定</string>
+    <string name="settings_reset_title">重置資料</string>
+    <string name="settings_reset_summary">當資料發生異常時可以點擊此選項，確認後將會刪除目前應用程式內所有資料並且重新下載新的資料。</string>
 </resources>
