@@ -44,6 +44,8 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     private Button mMoveToTop, mMoveToBottom;
 
+    private Context mContext;
+    
     public BigTableFragment() {
     }
 
@@ -51,13 +53,17 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     public abstract int getFragmentType();
 
+    private OnItemLongClickListener mOnItemLongClickListener;
+
     private void initComponents(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        mContext = getActivity();
         mRootView = inflater.inflate(R.layout.big_table, container, false);
         mDataList = (ListView)mRootView.findViewById(R.id.data_list);
-        mAdapter = new BigTableAdapter(getActivity(), getGameType(), getFragmentType(), this);
+        mAdapter = new BigTableAdapter(mContext, getGameType(), getFragmentType(), this);
         mDataList.setAdapter(mAdapter);
-        mDataList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+        mOnItemLongClickListener = new OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position,
@@ -87,7 +93,8 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
                 dialogFragment.show(getFragmentManager(), "DeleteDataConfirmDialog");
                 return true;
             }
-        });
+        };
+        mDataList.setOnItemLongClickListener(mOnItemLongClickListener);
         mHeader = (LinearLayout)mRootView.findViewById(R.id.data_list_header);
         mFooter = (LinearLayout)mRootView.findViewById(R.id.data_list_footer);
         mMoveToTop = (Button)mRootView.findViewById(R.id.move_to_top);
@@ -204,8 +211,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     public void updateContent() {
         createHeader();
-        mAdapter = new BigTableAdapter(getActivity(), getGameType(), getFragmentType(), this);
+        mAdapter = new BigTableAdapter(mContext, getGameType(), getFragmentType(), this);
         mDataList.setAdapter(mAdapter);
+        mDataList.setOnItemLongClickListener(mOnItemLongClickListener);
     }
 
     @Override
