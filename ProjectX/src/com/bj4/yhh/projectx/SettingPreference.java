@@ -7,6 +7,9 @@ import com.bj4.yhh.projectx.lot.hk6.HK6ParseService;
 import com.bj4.yhh.projectx.lot.lt539.LT539ParseService;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -86,7 +89,8 @@ public class SettingPreference extends PreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if ("reset_all".equals(preference.getKey())) {
+        final String key = preference.getKey();
+        if ("reset_all".equals(key)) {
             // reset all data and reload
             final Activity activity = getActivity();
             activity.stopService(new Intent(activity, HK6ParseService.class));
@@ -94,6 +98,76 @@ public class SettingPreference extends PreferenceFragment {
             activity.stopService(new Intent(activity, BLotParseService.class));
             // clear all db in advance
             Utils.startUpdateAllService(activity);
+        } else if ("39_text_size".equals(key)) {
+            new AlertDialog.Builder(getActivity())
+                    .setCancelable(true)
+                    .setItems(R.array.settings_39_text_size_items, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSharedPreferenceManager.set39TextSize(Integer.valueOf(getActivity()
+                                    .getResources().getStringArray(
+                                            R.array.settings_39_text_size_items)[which]));
+                            mSharedPreferenceManager.settingChanged(true);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            }).setTitle(R.string.settings_39_text_size_title).create().show();
+        } else if ("49_text_size".equals(key)) {
+            new AlertDialog.Builder(getActivity())
+                    .setCancelable(true)
+                    .setItems(R.array.settings_49_text_size_items, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSharedPreferenceManager.set49TextSize(Integer.valueOf(getActivity()
+                                    .getResources().getStringArray(
+                                            R.array.settings_49_text_size_items)[which]));
+                            mSharedPreferenceManager.settingChanged(true);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            }).setTitle(R.string.settings_49_text_size_title).create().show();
+        } else if ("39_number_width".equals(key)) {
+            new AlertDialog.Builder(getActivity())
+                    .setCancelable(true)
+                    .setItems(R.array.settings_39_number_width_items, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSharedPreferenceManager.set39NumberWidth(Integer.valueOf(getActivity()
+                                    .getResources().getStringArray(
+                                            R.array.settings_39_number_width_items)[which])
+                                    * getActivity().getResources().getDisplayMetrics().density);
+                            mSharedPreferenceManager.settingChanged(true);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            }).setTitle(R.string.settings_39_number_width_title).create().show();
+        } else if ("49_number_width".equals(key)) {
+            new AlertDialog.Builder(getActivity())
+                    .setCancelable(true)
+                    .setItems(R.array.settings_49_number_width_items, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSharedPreferenceManager.set49NumberWidth(Integer.valueOf(getActivity()
+                                    .getResources().getStringArray(
+                                            R.array.settings_49_number_width_items)[which])
+                                    * getActivity().getResources().getDisplayMetrics().density);
+                            mSharedPreferenceManager.settingChanged(true);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            }).setTitle(R.string.settings_49_number_width_title).create().show();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

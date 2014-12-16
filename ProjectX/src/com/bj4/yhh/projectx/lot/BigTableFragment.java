@@ -203,7 +203,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
     }
 
     public void updateContent() {
-        mAdapter.notifyDataSetChanged();
+        createHeader();
+        mAdapter = new BigTableAdapter(getActivity(), getGameType(), getFragmentType(), this);
+        mDataList.setAdapter(mAdapter);
     }
 
     @Override

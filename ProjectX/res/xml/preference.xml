@@ -9,6 +9,19 @@
             android:key="grid_color"
             android:summary="@string/grid_color_summary"
             android:title="@string/grid_color_dialog_title" />
+
+        <Preference
+            android:key="39_text_size"
+            android:title="@string/settings_39_text_size_title" />
+        <Preference
+            android:key="49_text_size"
+            android:title="@string/settings_49_text_size_title" />
+        <Preference
+            android:key="39_number_width"
+            android:title="@string/settings_39_number_width_title" />
+        <Preference
+            android:key="49_number_width"
+            android:title="@string/settings_49_number_width_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_cat_function" >
         <CheckBoxPreference

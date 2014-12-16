@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.bj4.yhh.projectx.MainActivity;
 import com.bj4.yhh.projectx.R;
+import com.bj4.yhh.projectx.SharedPreferenceManager;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -39,13 +40,13 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     private LayoutInflater mInflater;
 
-    private final int mTableTextSize;
+    private int mTableTextSize;
 
-    private final int mTableDateWidth;
+    private int mTableDateWidth;
 
-    private final int mTableNumberWidth;
+    private int mTableNumberWidth;
 
-    private final ArrayList<LotteryData> mData = new ArrayList<LotteryData>();
+    private ArrayList<LotteryData> mData = new ArrayList<LotteryData>();
 
     private final ArrayList<Integer> mOrderedList = new ArrayList<Integer>();
 
@@ -66,21 +67,18 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         mCallback = cb;
         mContext = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mTableTextSize = getTableTextSize(context, TOTAL_NUMBER_COUNT);
-        mTableDateWidth = getTableDateWidth(context, TOTAL_NUMBER_COUNT);
-        mTableNumberWidth = getTableNumberWidth(context, TOTAL_NUMBER_COUNT);
         initOrderedList();
         initData();
     }
 
     public static int getTableTextSize(Context context, final int totalNumber) {
         if (totalNumber < 40) {
-            return context.getResources().getInteger(R.integer.table_text_size_39);
+            return SharedPreferenceManager.getInstance(context).get39TextSize();
         } else {
-            return context.getResources().getInteger(R.integer.table_text_size_49);
+            return SharedPreferenceManager.getInstance(context).get49TextSize();
         }
     }
-    
+
     public static int getTableDateWidth(Context context, final int totalNumber) {
         if (totalNumber < 40) {
             return (int)context.getResources().getDimension(R.dimen.table_date_width_39);
@@ -91,9 +89,9 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     public static int getTableNumberWidth(Context context, final int totalNumber) {
         if (totalNumber < 40) {
-            return (int)context.getResources().getDimension(R.dimen.table_number_width_39);
+            return (int)SharedPreferenceManager.getInstance(context).get39NumberWidth();
         } else {
-            return (int)context.getResources().getDimension(R.dimen.table_number_width_49);
+            return (int)SharedPreferenceManager.getInstance(context).get49NumberWidth();
         }
     }
 
@@ -119,6 +117,9 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     }
 
     private void initData() {
+        mTableTextSize = getTableTextSize(mContext, TOTAL_NUMBER_COUNT);
+        mTableDateWidth = getTableDateWidth(mContext, TOTAL_NUMBER_COUNT);
+        mTableNumberWidth = getTableNumberWidth(mContext, TOTAL_NUMBER_COUNT);
         mGridColorResource = Utils.getGridColorResource(mContext);
         mGridColorWithExtraRightResource = Utils.getGridColorWithExtraRightResource(mContext);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -131,6 +132,7 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     public void notifyDataSetChanged() {
         initData();
+        super.notifyDataSetChanged();
     }
 
     @Override

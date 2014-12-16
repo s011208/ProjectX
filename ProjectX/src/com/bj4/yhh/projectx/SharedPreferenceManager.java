@@ -26,6 +26,17 @@ public class SharedPreferenceManager {
 
     private static SharedPreferenceManager sInstance;
 
+    // text size
+    // 39
+    public static final String KEY_39_TEXT_SIZE = "key_39_textsize";
+
+    public static final String KEY_39_NUMBER_WIDTH = "key_39_number_width";
+
+    // 49
+    public static final String KEY_49_TEXT_SIZE = "key_49_textsize";
+
+    public static final String KEY_49_NUMBER_WIDTH = "key_49_number_width";
+
     public synchronized static SharedPreferenceManager getInstance(Context context) {
         if (sInstance == null) {
             sInstance = new SharedPreferenceManager(context);
@@ -75,5 +86,41 @@ public class SharedPreferenceManager {
         if (lines < 0)
             lines = DEFAULT_DISPLAY_LINES;
         mPref.edit().putInt(KEY_DISPLAY_LINES, lines).commit();
+    }
+
+    public void set39TextSize(int textSize) {
+        mPref.edit().putInt(KEY_39_TEXT_SIZE, textSize).commit();
+    }
+
+    public int get39TextSize() {
+        return mPref.getInt(KEY_39_TEXT_SIZE,
+                mContext.getResources().getInteger(R.integer.table_text_size_39));
+    }
+
+    public void set49TextSize(int textSize) {
+        mPref.edit().putInt(KEY_49_TEXT_SIZE, textSize).commit();
+    }
+
+    public int get49TextSize() {
+        return mPref.getInt(KEY_49_TEXT_SIZE,
+                mContext.getResources().getInteger(R.integer.table_text_size_49));
+    }
+
+    public void set39NumberWidth(float width) {
+        mPref.edit().putFloat(KEY_39_NUMBER_WIDTH, width).commit();
+    }
+
+    public float get39NumberWidth() {
+        return mPref.getFloat(KEY_39_NUMBER_WIDTH,
+                mContext.getResources().getDimension(R.dimen.table_number_width_39));
+    }
+
+    public void set49NumberWidth(float width) {
+        mPref.edit().putFloat(KEY_49_NUMBER_WIDTH, width).commit();
+    }
+
+    public float get49NumberWidth() {
+        return mPref.getFloat(KEY_49_NUMBER_WIDTH,
+                mContext.getResources().getDimension(R.dimen.table_number_width_49));
     }
 }

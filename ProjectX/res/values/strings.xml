@@ -48,7 +48,6 @@
         <item>@string/blue</item>
         <item>@string/grey</item>
     </string-array>
-
     <string-array name="grid_color_value">
         <item>0</item>
         <item>1</item>
@@ -62,4 +61,46 @@
     <string name="settings_cat_reset">其他設定</string>
     <string name="settings_reset_title">重置資料</string>
     <string name="settings_reset_summary">當資料發生異常時可以點擊此選項，確認後將會刪除目前應用程式內所有資料並且重新下載新的資料。</string>
+    <string name="settings_39_text_size_title">設定39欄位字體大小</string>
+    <string name="settings_49_text_size_title">設定49欄位字體大小</string>
+    <string name="settings_39_number_width_title">設定39欄位大小</string>
+    <string name="settings_49_number_width_title">設定49欄位大小</string>
+
+    <string-array name="settings_39_text_size_items">
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+    </string-array>
+    <string-array name="settings_49_text_size_items">
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+    </string-array>
+    <string-array name="settings_39_number_width_items">
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>32</item>
+        <item>34</item>
+        <item>36</item>
+    </string-array>
+    <string-array name="settings_49_number_width_items">
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>25</item>
+        <item>27</item>
+        <item>29</item>
+    </string-array>
+
 </resources>
