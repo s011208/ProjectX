@@ -61,12 +61,16 @@ public abstract class ParseService extends Service implements ParseTask.ParseTas
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final boolean parseRecently = intent
-                .getBooleanExtra(INTENT_EXTRAS_PARSE_RECENT_DATA, false);
-        if (parseRecently) {
-            parseRecently();
+        if (intent != null) {
+            final boolean parseRecently = intent.getBooleanExtra(INTENT_EXTRAS_PARSE_RECENT_DATA,
+                    false);
+            if (parseRecently) {
+                parseRecently();
+            } else {
+                parseAll();
+            }
         } else {
-            parseAll();
+            parseRecently();
         }
         return super.onStartCommand(intent, flags, startId);
     }
