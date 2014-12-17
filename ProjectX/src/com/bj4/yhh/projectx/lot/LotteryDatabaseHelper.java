@@ -94,6 +94,13 @@ public class LotteryDatabaseHelper extends SQLiteOpenHelper {
         getDatabase().delete(table, null, null);
     }
 
+    public void clearAllData() {
+        getDatabase().delete(TABLE_HK6, null, null);
+        getDatabase().delete(TABLE_LT539, null, null);
+        getDatabase().delete(TABLE_WELI, null, null);
+        getDatabase().delete(TABLE_BLOT, null, null);
+    }
+
     public ArrayList<LotteryData> getData(int type) {
         final ArrayList<LotteryData> rtn = new ArrayList<LotteryData>();
         String table = getTableName(type);

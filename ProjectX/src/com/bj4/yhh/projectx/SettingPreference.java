@@ -1,6 +1,7 @@
 
 package com.bj4.yhh.projectx;
 
+import com.bj4.yhh.projectx.lot.LotteryDatabaseHelper;
 import com.bj4.yhh.projectx.lot.Utils;
 import com.bj4.yhh.projectx.lot.blot.BLotParseService;
 import com.bj4.yhh.projectx.lot.hk6.HK6ParseService;
@@ -93,11 +94,26 @@ public class SettingPreference extends PreferenceFragment {
         if ("reset_all".equals(key)) {
             // reset all data and reload
             final Activity activity = getActivity();
-            activity.stopService(new Intent(activity, HK6ParseService.class));
-            activity.stopService(new Intent(activity, LT539ParseService.class));
-            activity.stopService(new Intent(activity, BLotParseService.class));
-            // clear all db in advance
-            Utils.startUpdateAllService(activity);
+            new AlertDialog.Builder(getActivity())
+                    .setCancelable(true)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            activity.stopService(new Intent(activity, HK6ParseService.class));
+                            activity.stopService(new Intent(activity, LT539ParseService.class));
+                            activity.stopService(new Intent(activity, BLotParseService.class));
+                            // clear all db in advance
+                            LotteryDatabaseHelper.getInstance(activity).clearAllData();
+                            mSharedPreferenceManager.settingChanged(true);
+                            Utils.startUpdateAllService(activity);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                }
+                            }).setIcon(android.R.drawable.ic_delete)
+                    .setTitle(R.string.delete_all_data)
+                    .setMessage(R.string.settings_reset_dialog_summary).create().show();
         } else if ("39_text_size".equals(key)) {
             new AlertDialog.Builder(getActivity())
                     .setCancelable(true)

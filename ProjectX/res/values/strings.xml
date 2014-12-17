@@ -61,6 +61,7 @@
     <string name="settings_cat_reset">其他設定</string>
     <string name="settings_reset_title">重置資料</string>
     <string name="settings_reset_summary">當資料發生異常時可以點擊此選項，確認後將會刪除目前應用程式內所有資料並且重新下載新的資料。</string>
+    <string name="settings_reset_dialog_summary">點擊確定後會清除所有期數資料並且重新下載所有資料，過程必須連上網際網路並且需要花費數分鐘完成。</string>
     <string name="settings_39_text_size_title">設定39欄位字體大小</string>
     <string name="settings_49_text_size_title">設定49欄位字體大小</string>
     <string name="settings_39_number_width_title">設定39欄位大小</string>
