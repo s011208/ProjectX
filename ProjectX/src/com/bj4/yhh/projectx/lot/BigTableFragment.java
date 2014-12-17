@@ -117,14 +117,10 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     private void createFooter(HashMap<Integer, Integer> resultMap) {
         mFooter.removeAllViews();
-        Context context = getActivity();
-        if (context == null) {
-            return;
-        }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
-        int tableTextSize = (int)(BigTableAdapter.getTableTextSize(context, mTotalNumber) * 0.75f);
-        int tableDateWidth = (int)BigTableAdapter.getTableDateWidth(context, mTotalNumber);
-        int tableNumberWidth = BigTableAdapter.getTableNumberWidth(context, mTotalNumber);
+        int tableTextSize = (int)(BigTableAdapter.getTableTextSize(mContext, mTotalNumber) * 0.75f);
+        int tableDateWidth = (int)BigTableAdapter.getTableDateWidth(mContext, mTotalNumber);
+        int tableNumberWidth = BigTableAdapter.getTableNumberWidth(mContext, mTotalNumber);
         ArrayList<Integer> headerData = null;
         switch (getFragmentType()) {
             case MainActivity.FRAGMENT_TYPE_LAST:
@@ -138,7 +134,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
                 break;
         }
 
-        TextView date = new TextView(context);
+        TextView date = new TextView(mContext);
         date.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
         date.setEllipsize(TruncateAt.END);
         date.setGravity(Gravity.CENTER);
@@ -148,7 +144,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
                 LinearLayout.LayoutParams.MATCH_PARENT);
         mFooter.addView(date, ll);
         for (int i = 0; i < mTotalNumber; i++) {
-            TextView txt = new TextView(context);
+            TextView txt = new TextView(mContext);
             txt.setSingleLine();
             txt.setGravity(Gravity.CENTER);
             txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
@@ -162,14 +158,10 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     private void createHeader() {
         mHeader.removeAllViews();
-        Context context = getActivity();
-        if (context == null) {
-            return;
-        }
         mTotalNumber = LotteryData.getTotalNumber(getGameType());
-        int tableTextSize = BigTableAdapter.getTableTextSize(context, mTotalNumber);
-        int tableDateWidth = BigTableAdapter.getTableDateWidth(context, mTotalNumber);
-        int tableNumberWidth = BigTableAdapter.getTableNumberWidth(context, mTotalNumber);
+        int tableTextSize = BigTableAdapter.getTableTextSize(mContext, mTotalNumber);
+        int tableDateWidth = BigTableAdapter.getTableDateWidth(mContext, mTotalNumber);
+        int tableNumberWidth = BigTableAdapter.getTableNumberWidth(mContext, mTotalNumber);
         ArrayList<Integer> headerData = null;
         switch (getFragmentType()) {
             case MainActivity.FRAGMENT_TYPE_LAST:
@@ -183,7 +175,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
                 break;
         }
 
-        TextView date = new TextView(context);
+        TextView date = new TextView(mContext);
         date.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
         date.setEllipsize(TruncateAt.END);
         date.setGravity(Gravity.CENTER);
@@ -193,7 +185,7 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
                 LinearLayout.LayoutParams.MATCH_PARENT);
         mHeader.addView(date, ll);
         for (int i = 0; i < mTotalNumber; i++) {
-            TextView txt = new TextView(context);
+            TextView txt = new TextView(mContext);
             txt.setSingleLine();
             txt.setGravity(Gravity.CENTER);
             txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, tableTextSize);
