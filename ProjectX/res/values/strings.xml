@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">報表小工具</string>
+    <string name="move_to_top">移致最上方</string>
+    <string name="move_to_bottom">移致最下方</string>
+    <string name="show_subtotal_only">只顯示月小結</string>
     <string name="title_section1">順序</string>
     <string name="title_section2">合數</string>
     <string name="title_section3">尾數</string>
@@ -106,4 +109,5 @@
 
     <string name="current_text_size">目前字型大小</string>
     <string name="current_number_width">目前欄位大小</string>
+
 </resources>

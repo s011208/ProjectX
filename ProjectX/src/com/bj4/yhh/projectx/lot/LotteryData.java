@@ -80,16 +80,16 @@ public class LotteryData {
     private static void preProcessData(final ArrayList<LotteryData> data) {
         if (data != null && data.isEmpty() == false) {
             ArrayList<LotteryData> tempList = new ArrayList<LotteryData>();
-            String previousMonth = null;
+            String previousMonthYear = null;
             for (int i = 0; i < data.size(); i++) {
                 final LotteryData current = data.get(i);
-                final String currentMonth = current.mDate.substring(5, 7);
-                if (previousMonth != null) {
-                    if (previousMonth.equals(currentMonth)) {
+                final String currentMonthYear = current.mDate.substring(0, 7);
+                if (previousMonthYear != null) {
+                    if (previousMonthYear.equals(currentMonthYear)) {
                         tempList.add(current);
                     } else {
                         LotteryData subTotalData = getNewSubTotalLotteryData(tempList,
-                                previousMonth);
+                                previousMonthYear);
                         tempList.clear();
                         data.add(i, subTotalData);
                         i++;
@@ -98,10 +98,10 @@ public class LotteryData {
                 } else {
                     tempList.add(current);
                 }
-                previousMonth = currentMonth;
+                previousMonthYear = currentMonthYear;
             }
             if (tempList.isEmpty() == false) {
-                LotteryData subTotalData = getNewSubTotalLotteryData(tempList, previousMonth);
+                LotteryData subTotalData = getNewSubTotalLotteryData(tempList, previousMonthYear);
                 data.add(subTotalData);
             }
         }
@@ -111,7 +111,7 @@ public class LotteryData {
             String title) {
         LotteryData subTotalData = new LotteryData(new LotteryNumber(), new LotteryNumber(),
                 new LotteryNumber(), new LotteryNumber(), new LotteryNumber(), new LotteryNumber(),
-                new LotteryNumber(), title + "月小計", NOT_USED);
+                new LotteryNumber(), title + " 小計", NOT_USED);
         subTotalData.mIsSubTotal = true;
         SparseArray<Integer> subTotal = new SparseArray<Integer>();
         for (LotteryData tempData : tempList) {

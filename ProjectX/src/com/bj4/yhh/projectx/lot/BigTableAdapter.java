@@ -48,6 +48,8 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     private ArrayList<LotteryData> mData = new ArrayList<LotteryData>();
 
+    private ArrayList<LotteryData> mSubTotalData = new ArrayList<LotteryData>();
+
     private final ArrayList<Integer> mOrderedList = new ArrayList<Integer>();
 
     private final ArrayList<Integer> mSeperatedPositionList = new ArrayList<Integer>();
@@ -57,6 +59,8 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     private int mGridColorResource = 0;
 
     private int mGridColorWithExtraRightResource = 0;
+
+    private boolean mShowSubTotalOnly = false;
 
     public BigTableAdapter(Context context, final int gameType, final int fragmentType,
             final Callback cb) {
@@ -130,6 +134,14 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         }
     }
 
+    public boolean getShowSubTotal() {
+        return mShowSubTotalOnly;
+    }
+
+    public void setShowSubTotal(boolean b) {
+        mShowSubTotalOnly = b;
+    }
+
     public void notifyDataSetChanged() {
         initData();
         super.notifyDataSetChanged();
@@ -137,12 +149,12 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mShowSubTotalOnly ? mSubTotalData.size() : mData.size();
     }
 
     @Override
     public LotteryData getItem(int position) {
-        return mData.get(position);
+        return mShowSubTotalOnly ? mSubTotalData.get(position) : mData.get(position);
     }
 
     @Override
@@ -186,10 +198,19 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
         for (int i = 1; i < container.getChildCount(); i++) {
             final int indexNumber = mOrderedList.get(i - 1);
             if (data.mIsSubTotal) {
-                if (mSeperatedPositionList.contains(i)) {
-                    holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
+                if (!mShowSubTotalOnly) {
+                    if (mSeperatedPositionList.contains(i)) {
+                        holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
+                    } else {
+                        holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
+                    }
                 } else {
-                    holder.mText.get(i - 1).setBackgroundResource(R.drawable.red_column_bg);
+                    if (mSeperatedPositionList.contains(i)) {
+                        holder.mText.get(i - 1).setBackgroundResource(
+                                mGridColorWithExtraRightResource);
+                    } else {
+                        holder.mText.get(i - 1).setBackgroundResource(mGridColorResource);
+                    }
                 }
                 holder.mText.get(i - 1).setText(String.valueOf(data.mSubTotal.get(indexNumber, 0)));
             } else {
@@ -258,6 +279,12 @@ public class BigTableAdapter extends BaseAdapter implements DataLoadTask.Callbac
     public void done(ArrayList<LotteryData> data) {
         mData.clear();
         mData.addAll(data);
+        mSubTotalData.clear();
+        for (LotteryData d : mData) {
+            if (d.mIsSubTotal) {
+                mSubTotalData.add(d);
+            }
+        }
         new CalculateTask(data, mCallback).execute();
         super.notifyDataSetChanged();
     }

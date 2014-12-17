@@ -29,7 +29,7 @@
                 android:layout_width="@dimen/big_table_fragment_button_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:text="移至最上方"
+                android:text="@string/move_to_top"
                 android:textSize="@dimen/big_table_fragment_button_textsize" />
 
             <Button
@@ -38,8 +38,15 @@
                 android:layout_width="@dimen/big_table_fragment_button_width"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:text="移至最下方"
+                android:text="@string/move_to_bottom"
                 android:textSize="@dimen/big_table_fragment_button_textsize" />
+
+            <CheckBox
+                android:id="@+id/show_sub_total_only"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:text="@string/show_subtotal_only" />
         </LinearLayout>
 
         <LinearLayout

@@ -19,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,8 +47,10 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     private Button mMoveToTop, mMoveToBottom;
 
+    private CheckBox mShowSubtotalOnly;
+
     private Context mContext;
-    
+
     public BigTableFragment() {
     }
 
@@ -110,6 +115,14 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
             @Override
             public void onClick(View arg0) {
                 mDataList.setSelection(mAdapter.getCount());
+            }
+        });
+        mShowSubtotalOnly = (CheckBox)mRootView.findViewById(R.id.show_sub_total_only);
+        mShowSubtotalOnly.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton arg0, boolean b) {
+                mAdapter.setShowSubTotal(b);
+                mAdapter.notifyDataSetChanged();
             }
         });
         createHeader();
@@ -203,7 +216,9 @@ public abstract class BigTableFragment extends Fragment implements BigTableAdapt
 
     public void updateContent() {
         createHeader();
+        final boolean showSubTotalStatus = mAdapter == null ? false : mAdapter.getShowSubTotal();
         mAdapter = new BigTableAdapter(mContext, getGameType(), getFragmentType(), this);
+        mAdapter.setShowSubTotal(showSubTotalStatus);
         mDataList.setAdapter(mAdapter);
         mDataList.setOnItemLongClickListener(mOnItemLongClickListener);
     }

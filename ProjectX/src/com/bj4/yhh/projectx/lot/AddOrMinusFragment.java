@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -31,6 +34,8 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
     private RadioGroup mAdd, mMinus;
 
     private Button mMoveToTop, mMoveToBottom;
+
+    private CheckBox mShowSubTotalOnly;
 
     private int mValue = 0;
 
@@ -95,6 +100,17 @@ public abstract class AddOrMinusFragment extends Fragment implements UpdatableFr
                 mDataList.setSelection(mAdapter.getCount());
             }
         });
+        mShowSubTotalOnly = (CheckBox)mRootView.findViewById(R.id.show_sub_total_only);
+        if (mShowSubTotalOnly != null) {
+            mShowSubTotalOnly.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton arg0, boolean b) {
+                    mAdapter.setShowSubTotal(b);
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     @Override

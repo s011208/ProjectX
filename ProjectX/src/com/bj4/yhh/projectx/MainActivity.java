@@ -150,8 +150,8 @@ public class MainActivity extends Activity implements
                 title = getString(R.string.blot);
                 break;
         }
-        Toast.makeText(this, title + " " + getString(R.string.update_done), Toast.LENGTH_LONG)
-                .show();
+//        Toast.makeText(this, title + " " + getString(R.string.update_done), Toast.LENGTH_LONG)
+//                .show();
     }
 
     private void registerReceiver() {

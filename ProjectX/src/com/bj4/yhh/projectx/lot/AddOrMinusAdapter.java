@@ -45,9 +45,21 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     private final ArrayList<LotteryData> mData = new ArrayList<LotteryData>();
 
+    private final ArrayList<LotteryData> mSubTotalData = new ArrayList<LotteryData>();
+
     private int mComparedValue = 0;
 
     private int mGridColorResource = 0;
+
+    private boolean mShowSubTotalOnly = false;
+
+    public void setShowSubTotal(boolean b) {
+        mShowSubTotalOnly = b;
+    }
+
+    public boolean getShowSubTotal() {
+        return mShowSubTotalOnly;
+    }
 
     public AddOrMinusAdapter(Context context, final int gameType) {
         GAME_TYPE = gameType;
@@ -83,12 +95,12 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
 
     @Override
     public int getCount() {
-        return mData.size();
+        return mShowSubTotalOnly ? mSubTotalData.size() : mData.size();
     }
 
     @Override
     public LotteryData getItem(int position) {
-        return mData.get(position);
+        return mShowSubTotalOnly ? mSubTotalData.get(position) : mData.get(position);
     }
 
     @Override
@@ -230,6 +242,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
     public void done(ArrayList<LotteryData> data) {
         mData.clear();
         mData.addAll(data);
+        mSubTotalData.clear();
         int m1, m2, m3, m4, m5, m6, m7;
         m1 = m2 = m3 = m4 = m5 = m6 = m7 = 0;
         for (int position = 0; position < mData.size(); position++) {
@@ -243,6 +256,7 @@ public class AddOrMinusAdapter extends BaseAdapter implements DataLoadTask.Callb
                 currentData.m6.mNumber = m6;
                 currentData.m7.mNumber = m7;
                 m1 = m2 = m3 = m4 = m5 = m6 = m7 = 0;
+                mSubTotalData.add(currentData);
             } else {
                 LotteryData comparedData = null;
                 try {

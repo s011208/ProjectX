@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bj4.yhh.projectx"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -49,6 +49,7 @@
         <activity
             android:name="com.bj4.yhh.projectx.SettingActivity"
             android:label="@string/settings"
+            android:parentActivityName="com.bj4.yhh.projectx.MainActivity"
             android:screenOrientation="sensorLandscape" >
         </activity>
 
