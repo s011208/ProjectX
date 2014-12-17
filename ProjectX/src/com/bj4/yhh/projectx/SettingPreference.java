@@ -29,6 +29,8 @@ public class SettingPreference extends PreferenceFragment {
 
     private CheckBoxPreference mLongClickRemovePreference;
 
+    private Preference mTextSize39, mTextSize49, mNumberWidth39, mNumberWidth49;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,23 @@ public class SettingPreference extends PreferenceFragment {
                 .getApplicationContext());
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preference);
+        // size
+        mTextSize39 = (Preference)findPreference("39_text_size");
+        mTextSize39.setSummary(getResources().getString(R.string.current_text_size) + ": "
+                + mSharedPreferenceManager.get39TextSize());
+        mTextSize49 = (Preference)findPreference("49_text_size");
+        mTextSize49.setSummary(getResources().getString(R.string.current_text_size) + ": "
+                + mSharedPreferenceManager.get49TextSize());
+        mNumberWidth39 = (Preference)findPreference("39_number_width");
+        mNumberWidth39.setSummary(getResources().getString(R.string.current_number_width)
+                + ": "
+                + (Integer)Math.round(mSharedPreferenceManager.get39NumberWidth()
+                        / getResources().getDisplayMetrics().density));
+        mNumberWidth49 = (Preference)findPreference("49_number_width");
+        mNumberWidth49.setSummary(getResources().getString(R.string.current_number_width)
+                + ": "
+                + (Integer)Math.round(mSharedPreferenceManager.get49NumberWidth()
+                        / getResources().getDisplayMetrics().density));
         // grid color
         mGridColorPreference = (ListPreference)findPreference("grid_color");
         final int currentColor = mSharedPreferenceManager.getGridColor();
@@ -132,6 +151,9 @@ public class SettingPreference extends PreferenceFragment {
                                     .getResources().getStringArray(
                                             R.array.settings_39_text_size_items)[which]));
                             mSharedPreferenceManager.settingChanged(true);
+                            mTextSize39.setSummary(getResources().getString(
+                                    R.string.current_text_size)
+                                    + ": " + mSharedPreferenceManager.get39TextSize());
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
@@ -149,6 +171,9 @@ public class SettingPreference extends PreferenceFragment {
                                     .getResources().getStringArray(
                                             R.array.settings_49_text_size_items)[which]));
                             mSharedPreferenceManager.settingChanged(true);
+                            mTextSize49.setSummary(getResources().getString(
+                                    R.string.current_text_size)
+                                    + ": " + mSharedPreferenceManager.get49TextSize());
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
@@ -167,6 +192,12 @@ public class SettingPreference extends PreferenceFragment {
                                             R.array.settings_39_number_width_items)[which])
                                     * getActivity().getResources().getDisplayMetrics().density);
                             mSharedPreferenceManager.settingChanged(true);
+                            mNumberWidth39.setSummary(getResources().getString(
+                                    R.string.current_number_width)
+                                    + ": "
+                                    + (Integer)Math.round(mSharedPreferenceManager
+                                            .get39NumberWidth()
+                                            / getResources().getDisplayMetrics().density));
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
@@ -185,6 +216,12 @@ public class SettingPreference extends PreferenceFragment {
                                             R.array.settings_49_number_width_items)[which])
                                     * getActivity().getResources().getDisplayMetrics().density);
                             mSharedPreferenceManager.settingChanged(true);
+                            mNumberWidth49.setSummary(getResources().getString(
+                                    R.string.current_number_width)
+                                    + ": "
+                                    + (Integer)Math.round(mSharedPreferenceManager
+                                            .get49NumberWidth()
+                                            / getResources().getDisplayMetrics().density));
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
