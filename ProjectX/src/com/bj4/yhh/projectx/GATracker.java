@@ -14,6 +14,20 @@ public class GATracker {
 
     public static final String CATEGORY_MENU = "menu";
 
+    public static final String SCREEN_HK6 = "HK6";
+
+    public static final String SCREEN_BLOT = "Blot";
+
+    public static final String SCREEN_LT539 = "Lt539";
+
+    public static final String SCREEN_TYPE_ORDER = " - order";
+
+    public static final String SCREEN_TYPE_COMBINATION = " - combination";
+
+    public static final String SCREEN_TYPE_LAST = " - last";
+
+    public static final String SCREEN_TYPE_ADD_AND_MINUS = " - add and minus";
+
     public static final String ACTION_TYPE_HK6 = "HK6";
 
     public static final String ACTION_TYPE_BLOT = "Blot";
@@ -31,10 +45,22 @@ public class GATracker {
     public static final String ACTION_UPDATE_ALL = "update all";
 
     public static final String ACTION_UPDATE_RECENT = "update recent";
-    
+
     public static final String ACTION_SETTIGNS = "settings";
-    
+
     public static final String ACTION_DISPLAY_LINES = "display lines";
+
+    public static final String CATEGORY_SETTINGS = "settnigs";
+
+    public static final String ACTION_RESET_ALL = "reset all data";
+
+    public static final String ACTION_GRID_COLOR = "grid color";
+
+    public static final String LABEL_GRID_COLOR_BLUE = "blue";
+
+    public static final String LABEL_GRID_COLOR_BLACK = "black";
+
+    public static final String LABEL_GRID_COLOR_GREY = "grey";
 
     private static synchronized Tracker getTracker(Context context) {
         if (sTracker == null) {

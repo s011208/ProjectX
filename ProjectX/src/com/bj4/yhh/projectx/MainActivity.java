@@ -187,23 +187,39 @@ public class MainActivity extends Activity implements
                     fragments = new HashMap<Integer, Fragment>();
                 }
                 rtn = fragments.get(fragmentType);
-                if (rtn == null) {
-                    switch (fragmentType) {
-                        case FRAGMENT_TYPE_ORDERED:
+
+                switch (fragmentType) {
+                    case FRAGMENT_TYPE_ORDERED:
+                        if (rtn == null) {
                             rtn = HK6OrderedFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_COMBINATION:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_HK6
+                                + GATracker.SCREEN_TYPE_ORDER);
+                        break;
+                    case FRAGMENT_TYPE_COMBINATION:
+                        if (rtn == null) {
                             rtn = HK6CombinationFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_LAST:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_HK6
+                                + GATracker.SCREEN_TYPE_COMBINATION);
+                        break;
+                    case FRAGMENT_TYPE_LAST:
+                        if (rtn == null) {
                             rtn = HK6LastFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_HK6
+                                + GATracker.SCREEN_TYPE_LAST);
+                        break;
+                    case FRAGMENT_TYPE_ADD_AND_MINUS:
+                        if (rtn == null) {
                             rtn = HK6AddOrMinusFragment.getNewInstance();
-                            break;
-                    }
-                    fragments.put(fragmentType, rtn);
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_HK6
+                                + GATracker.SCREEN_TYPE_ADD_AND_MINUS);
+                        break;
                 }
+                fragments.put(fragmentType, rtn);
+
                 break;
             case LotteryData.TYPE_539:
                 fragments = mFragments.get(gameType);
@@ -211,23 +227,39 @@ public class MainActivity extends Activity implements
                     fragments = new HashMap<Integer, Fragment>();
                 }
                 rtn = fragments.get(fragmentType);
-                if (rtn == null) {
-                    switch (fragmentType) {
-                        case FRAGMENT_TYPE_ORDERED:
+
+                switch (fragmentType) {
+                    case FRAGMENT_TYPE_ORDERED:
+                        if (rtn == null) {
                             rtn = LT539OrderedFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_COMBINATION:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_LT539
+                                + GATracker.SCREEN_TYPE_ORDER);
+                        break;
+                    case FRAGMENT_TYPE_COMBINATION:
+                        if (rtn == null) {
                             rtn = LT539CombinationFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_LAST:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_LT539
+                                + GATracker.SCREEN_TYPE_COMBINATION);
+                        break;
+                    case FRAGMENT_TYPE_LAST:
+                        if (rtn == null) {
                             rtn = LT539LastFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_LT539
+                                + GATracker.SCREEN_TYPE_LAST);
+                        break;
+                    case FRAGMENT_TYPE_ADD_AND_MINUS:
+                        if (rtn == null) {
                             rtn = LT539AddOrMinusFragment.getNewInstance();
-                            break;
-                    }
-                    fragments.put(fragmentType, rtn);
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_LT539
+                                + GATracker.SCREEN_TYPE_ADD_AND_MINUS);
+                        break;
                 }
+                fragments.put(fragmentType, rtn);
+
                 break;
             case LotteryData.TYPE_WELI:
                 fragments = mFragments.get(gameType);
@@ -259,23 +291,39 @@ public class MainActivity extends Activity implements
                     fragments = new HashMap<Integer, Fragment>();
                 }
                 rtn = fragments.get(fragmentType);
-                if (rtn == null) {
-                    switch (fragmentType) {
-                        case FRAGMENT_TYPE_ORDERED:
+
+                switch (fragmentType) {
+                    case FRAGMENT_TYPE_ORDERED:
+                        if (rtn == null) {
                             rtn = BLotOrderedFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_COMBINATION:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_BLOT
+                                + GATracker.SCREEN_TYPE_ORDER);
+                        break;
+                    case FRAGMENT_TYPE_COMBINATION:
+                        if (rtn == null) {
                             rtn = BLotCombinationFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_LAST:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_BLOT
+                                + GATracker.SCREEN_TYPE_COMBINATION);
+                        break;
+                    case FRAGMENT_TYPE_LAST:
+                        if (rtn == null) {
                             rtn = BLotLastFragment.getNewInstance();
-                            break;
-                        case FRAGMENT_TYPE_ADD_AND_MINUS:
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_BLOT
+                                + GATracker.SCREEN_TYPE_LAST);
+                        break;
+                    case FRAGMENT_TYPE_ADD_AND_MINUS:
+                        if (rtn == null) {
                             rtn = BLotAddOrMinusFragment.getNewInstance();
-                            break;
-                    }
-                    fragments.put(fragmentType, rtn);
+                        }
+                        GATracker.sendScreen(getApplicationContext(), GATracker.SCREEN_BLOT
+                                + GATracker.SCREEN_TYPE_ADD_AND_MINUS);
+                        break;
                 }
+                fragments.put(fragmentType, rtn);
+
                 break;
             default:
                 break;

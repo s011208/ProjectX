@@ -13,4 +13,13 @@ public class SettingActivity extends Activity {
                 .replace(android.R.id.content, new SettingPreference()).commit();
     }
 
+    public void onStart() {
+        super.onStart();
+        GATracker.startActivity(this);
+    }
+
+    public void onStop() {
+        GATracker.stopActivity(this);
+        super.onStop();
+    }
 }

@@ -63,12 +63,18 @@ public class SettingPreference extends PreferenceFragment {
                         if ("0".equals(result)) {
                             mSharedPreferenceManager
                                     .setGridColor(SharedPreferenceManager.GRID_COLOR_BLACK);
+                            GATracker.sendEvent(getActivity(), GATracker.CATEGORY_SETTINGS,
+                                    GATracker.ACTION_GRID_COLOR, GATracker.LABEL_GRID_COLOR_BLACK);
                         } else if ("1".equals(result)) {
                             mSharedPreferenceManager
                                     .setGridColor(SharedPreferenceManager.GRID_COLOR_BLUE);
+                            GATracker.sendEvent(getActivity(), GATracker.CATEGORY_SETTINGS,
+                                    GATracker.ACTION_GRID_COLOR, GATracker.LABEL_GRID_COLOR_BLUE);
                         } else if ("2".equals(result)) {
                             mSharedPreferenceManager
                                     .setGridColor(SharedPreferenceManager.GRID_COLOR_GREY);
+                            GATracker.sendEvent(getActivity(), GATracker.CATEGORY_SETTINGS,
+                                    GATracker.ACTION_GRID_COLOR, GATracker.LABEL_GRID_COLOR_GREY);
                         }
                         mSharedPreferenceManager.settingChanged(true);
                         return true;
@@ -105,6 +111,8 @@ public class SettingPreference extends PreferenceFragment {
                             LotteryDatabaseHelper.getInstance(activity).clearAllData();
                             mSharedPreferenceManager.settingChanged(true);
                             Utils.startUpdateAllService(activity);
+                            GATracker.sendEvent(activity, GATracker.CATEGORY_SETTINGS,
+                                    GATracker.ACTION_RESET_ALL, null);
                         }
                     })
                     .setNegativeButton(android.R.string.cancel,
