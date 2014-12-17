@@ -346,6 +346,7 @@ public class MainActivity extends Activity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
+            // samsung is buggy...
             if ("samsung".equals(Build.MANUFACTURER) == false) {
                 menu.removeItem(R.id.space);
             }
